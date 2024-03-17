@@ -1,0 +1,29 @@
+* {
+  min-width: 0;
+  margin: 0;
+  border: 0;
+  box-sizing: border-box;
+  font-size: 16px;
+  /* here's the value for calculating rem and em */
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+.container {
+  min-width: 1600px;
+  margin: 0 auto;
+  padding: 0 20px;
+  width: 100%;
+}
+/* for adaptive design use rem, % or vh instead of px */
+/* and please don't use margin in boxes. Use flex-gap or grid-gap or .spacer instead. */

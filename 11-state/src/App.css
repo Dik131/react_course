@@ -1,0 +1,22 @@
+.App {
+  text-align: center;
+  cursor: pointer;
+}
+button {
+  padding: 1rem;
+  font-size: 1.2rem;
+  color: #112d49;
+  background-color: white;
+  border-radius: 5px;
+  border: 0;
+  width: 10rem;
+  cursor: progress;
+  font-family: 'Roboto', sans-serif;
+}
+h1 {
+  font-size: 3rem;
+  font-family: 'Roboto', serif;
+}
+.spacer {
+  padding: 1rem;
+}

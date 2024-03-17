@@ -1,0 +1,55 @@
+@import url(special-style.css) (monochrome);
+/* to set special file with styles for monochrome devices */
+@media screen and (max-width: 1600px) {
+  .container {
+    max-width: 1200px;
+  }
+}
+@media screen and (max-width: 1200px) {
+  .container {
+    max-width: 960px;
+  }
+}
+@media screen and (max-width: 960px), screen and (max-height: 700px) {
+  .container {
+    max-width: 720px;
+  }
+}
+@media (max-width: 720px) {
+  .container {
+    max-width: 540px;
+  }
+  /* good practice is make fonts and gaps smaller for small screens */
+  /* but navigation elements should be bigger for mobile devices */
+}
+@media (max-width: 540px) {
+  .container {
+    max-width: 100%;
+  }
+  /* good practice is to hide elements with display: none for small screens */
+}
+/* media queries for adaptive design are above */
+/* also, you can set max or min height for screens */
+@media all {
+  /* styles for all devices */
+}
+@media (orientation: portrait) {
+  /* styles for portrait mode */
+}
+@media (orientation: landscape) {
+  /* styles for landscape mode */
+}
+@media (min-resolution: 300dpi) {
+  /* styles for high resolution devices */
+  /* max and min are optional */
+}
+@media (monochrome) {
+  /* styles for black and white devices */
+}
+/* for mobile first style use min-width */
+img {
+  max-width: 100%;
+}
+/* adaptive for images */
+
+/* media queries for elements better to use nearby main style of an element */
