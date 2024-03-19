@@ -1,14 +1,9 @@
-import { useState } from "react";
-import "./App.css";
-import Counter from "./components/Counter";
-import Button from "./components/Button"; 
+import { useState } from 'react';
+import './App.css';
+import Counter from './components/Counter';
+import Button from './components/Button';
 
-const texts = [
-  "Click me right now",
-  "Click me twice",
-  "Click me here",
-  "Click me again" 
-];
+const texts = ['Click me right now', 'Click me twice', 'Click me here', 'Click me again'];
 
 function App() {
   const [count, setCount] = useState(0);
@@ -21,10 +16,20 @@ function App() {
       <Counter count={count} />
       <div className="spacer"></div>
       <div className="Buttons">
-        <Button onClick={IncrementCount} text={texts[0]}/>
+        {texts.map((text, index) => {
+          return (
+            <Button
+              onClick={IncrementCount}
+              text={text}
+              key={index}
+            />
+          );
+        })}
+        {/* key is a unique identifier for property map (it could be index or text itself*/}
+        {/* <Button onClick={IncrementCount} text={texts[0]}/>
         <Button onClick={IncrementCount} text={texts[1]}/>
         <Button onClick={IncrementCount} text={texts[2]}/>
-        <Button onClick={IncrementCount} text={texts[3]}/>
+        <Button onClick={IncrementCount} text={texts[3]}/> */}
       </div>
     </div>
   );
