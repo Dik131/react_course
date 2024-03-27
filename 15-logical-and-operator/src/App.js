@@ -1,14 +1,17 @@
-import { useState } from "react";
-import "./App.css";
-import Counter from "./components/Counter";
-import Button from "./components/Button";
+import { useState } from 'react';
+import './App.css';
+import Counter from './components/Counter';
+import Button from './components/Button';
 // import IncrementCount from "./components/IncrementCount";
 
-function App() {
+const App = () => {
   const [count, setCount] = useState(0);
   const IncrementCount = () => {
     setCount(count + 1);
   };
+
+  const buttonStyle = { backgroundColor: 'lightblue' };
+
   return (
     <div className="App">
       <div className="spacer"></div>
@@ -20,8 +23,9 @@ function App() {
         <Button onClick={IncrementCount} />
         <Button onClick={IncrementCount} />
       </div>
+      <button style={buttonStyle}>Reset</button>
     </div>
   );
-}
+};
 
 export default App;
