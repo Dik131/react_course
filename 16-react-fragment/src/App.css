@@ -1,0 +1,10 @@
+.App {
+  text-align: center;
+}
+.cards {
+  padding: 5rem 33rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
