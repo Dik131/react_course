@@ -1,6 +1,9 @@
 import './Login.css';
+import { useState } from 'react';
 
 const Login = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const handleSubmit = (event) => {
     event.preventDefault();
     const userData = {
@@ -17,12 +20,14 @@ const Login = () => {
         <input
           type="text"
           name="username"
+          value={username}
           placeholder="Enter your username"
         />
         <label>Password:</label>
         <input
           type="password"
           name="password"
+          value={password}
           placeholder="********"
         />
         <button type="submit">Login</button>
