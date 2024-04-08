@@ -1,11 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
-import { useEffect } from "react";
 
 function App() {
   const [todo, setTodo] = useState(null);
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/todos/1")
+    fetch("https://jsonplaceholder.typicode.com/todos/5")
       .then((response) => response.json())
       .then((json) => setTodo(json));
   }, []);
@@ -17,7 +16,7 @@ function App() {
   //   .then((response) => response.json())
   //   .then((json) => setTodo(json));
 
-  return <div className='App'></div>;
+  return <div className='App'>{todo && <h1>{todo.title}</h1>}</div>;
 }
 
 export default App;
