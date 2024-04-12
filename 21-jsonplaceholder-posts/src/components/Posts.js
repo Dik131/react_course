@@ -15,8 +15,15 @@ const Posts = () => {
 
   return (
     <div>
-      <Post />
-      <Post />
+      {posts.map((post) => (
+        <Post
+          key={post.id}
+          // id={post.userId}
+          // title={post.title}
+          // body={post.body}
+          {...post}
+        />
+      ))}
     </div>
   );
 };
