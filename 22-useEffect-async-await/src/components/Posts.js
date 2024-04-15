@@ -9,15 +9,28 @@ const Posts = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch(API_URL)
-      .then((res) => res.json())
-      .then((posts) => {
-        console.log(posts);
+    const fetchPosts = async () => {
+      try {
+        const response = await fetch(API_URL);
+        const posts = await response.json();
         setPosts(posts);
-      })
-      .catch((error) => console.log(error.message))
-      .finally(() => setIsLoading(false));
+      } catch (error) {
+        setError(error.message);
+      }
+      setIsLoading(false);
+    };
+    fetchPosts();
   }, []);
+  // useEffect(() => {
+  //   fetch(API_URL)
+  //     .then((res) => res.json())
+  //     .then((posts) => {
+  //       console.log(posts);
+  //       setPosts(posts);
+  //     })
+  //     .catch((error) => console.log(error.message))
+  //     .finally(() => setIsLoading(false));
+  // }, []);
   if (error) {
     return <h1>Error: {error}</h1>;
   }
@@ -29,15 +42,7 @@ const Posts = () => {
       {isLoading ? (
         <h1>Loading...</h1>
       ) : (
-        posts.map((post) => (
-          <Post
-            key={post.id}
-            // id={post.userId}
-            // title={post.title}
-            // body={post.body}
-            {...post}
-          />
-        ))
+        posts.map((post) => <Post key={post.id} {...post} />)
       )}
     </>
   );
