@@ -1,6 +1,9 @@
 .info {
   border: 5px solid tomato;
-  border-radius: 2%;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+  max-width: fit-content;
 }
 .myOtherButton {
   background-color: coral;
@@ -11,4 +14,7 @@
   font-size: 20px;
   margin-top: 10px;
   margin-bottom: 10px;
+}
+h2 {
+  color: blueviolet;
 }
