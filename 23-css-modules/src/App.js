@@ -9,6 +9,7 @@ function App() {
         <h1>Hello from App.JS</h1>
         <h2>Color from info module</h2>
         <button className="btn">App's button</button>
+        <button className={style.btn}>With local styles</button>
       </div>
     </div>
   );
