@@ -1,0 +1,14 @@
+.info {
+  border: 5px solid tomato;
+  border-radius: 2%;
+}
+.myOtherButton {
+  background-color: coral;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
