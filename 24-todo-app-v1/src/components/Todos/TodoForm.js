@@ -9,7 +9,7 @@ const TodoForm = ({ addTodo }) => {
     setText("");
   };
   return (
-    <div className={styles.todoFormWrapper}>
+    <div className={styles.TodoFormWrapper}>
       <form onSubmit={onSubmitHandler}>
         <input
           placeholder='Enter Todo'

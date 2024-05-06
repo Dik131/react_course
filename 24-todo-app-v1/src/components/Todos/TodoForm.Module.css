@@ -23,7 +23,7 @@
   background-color: rgb(240, 240, 155);
 }
 
-.TodoFormWrapper input,
+.TodoFormWrapper  input,
 button {
   padding: 10px 15px;
   border: none;
