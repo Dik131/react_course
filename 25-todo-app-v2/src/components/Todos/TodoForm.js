@@ -16,7 +16,9 @@ const TodoForm = ({ addTodo }) => {
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
-        <button type='submit'>Add</button>
+        <button type='submit' disabled={!text}>
+          Add
+        </button>
       </form>
     </div>
   );
