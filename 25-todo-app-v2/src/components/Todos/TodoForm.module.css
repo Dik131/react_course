@@ -7,25 +7,24 @@
 
 .TodoFormWrapper input {
   width: 45%;
-  height: 30px;
+  height: 1.5rem;
   font-size: 1.3rem;
 }
 
-.TodoFormWrapper button {
+/* .TodoFormWrapper button {
   display: block;
   margin-left: 20px;
   height: 50px;
   cursor: pointer;
   background-color: beige;
   font-size: 1rem;
-}
+} */
 
 .TodoFormWrapper button:hover {
   background-color: rgb(240, 240, 155);
 }
 
-.TodoFormWrapper input,
-button {
+.TodoFormWrapper input {
   padding: 10px 15px;
   border: none;
   border-radius: 5px;
