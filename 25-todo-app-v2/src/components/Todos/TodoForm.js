@@ -13,12 +13,12 @@ const TodoForm = ({ addTodo }) => {
     <div className={styles.TodoFormWrapper}>
       <form onSubmit={onSubmitHandler}>
         <input
-          placeholder='Enter Todo'
+          placeholder="Enter Todo"
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
-        <Button type='submit' disabled={!text}>
-          Add
+        <Button type="submit" title="Add Todo" disabled={!text}>
+          Submit
         </Button>
       </form>
     </div>
