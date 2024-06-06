@@ -54,6 +54,11 @@ function App() {
         deleteTodo={deleteTodoHandler}
         toggleTodo={toggleTodoHandler}
       />
+      {completedTodosCount === 0 ? null : (
+        <p>{`${completedTodosCount} completed ${
+          completedTodosCount === 1 ? "todo" : "todos"
+        }`}</p>
+      )}
     </div>
   );
 }
