@@ -12,6 +12,7 @@ function App() {
     const newTodo = {
       text,
       completed: false,
+      lineThrough: false,
       id: uuidv4(),
     };
     setTodos([...todos, newTodo]);
@@ -27,6 +28,15 @@ function App() {
       )
     );
   };
+  // const lineThroughHandler = (id) => {
+  //   setTodos(
+  //     todos.map((todo) =>
+  //       todo.id === id
+  //         ? { ...todo, lineThrough: !todo.lineThrough }
+  //         : { ...todo }
+  //     )
+  //   );
+  // };
   const resetTodosHandler = () => {
     setTodos([]);
   };

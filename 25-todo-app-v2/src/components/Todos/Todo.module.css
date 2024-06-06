@@ -43,7 +43,9 @@
   margin-right: 10px;
   color: teal;
 }
-
+.line-through {
+  text-decoration: line-through;
+}
 .completedTodo {
   background-color: unset;
   border-color: gray;
