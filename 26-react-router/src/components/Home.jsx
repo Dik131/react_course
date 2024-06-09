@@ -3,7 +3,7 @@ import Menu from "./Menu";
 const Home = () => {
   return (
     <>
-      <Menu />
+      {/* <Menu /> */}
       <h1>Home</h1>
       <Outlet />
     </>
