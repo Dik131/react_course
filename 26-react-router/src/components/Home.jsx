@@ -1,8 +1,12 @@
+import { Outlet } from "react-router-dom";
+import Menu from "./Menu";
 const Home = () => {
   return (
-    <div>
+    <>
+      <Menu />
       <h1>Home</h1>
-    </div>
+      <Outlet />
+    </>
   );
 };
 
