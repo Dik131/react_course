@@ -6,12 +6,17 @@ import {
 // import { FaCheck } from "react-icons/fa";
 import styles from "./Todo.module.css";
 
-const Todo = ({ todo, deleteTodo, toggleTodo, lineThrough }) => {
+const Todo = ({ todo, deleteTodo, toggleTodo, lineThroughState }) => {
   return (
     <div
-      className={`${styles.todo} ${todo.completed ? styles.completedTodo : ""}`}
+      className={`${styles.todo} ${
+        todo.completed ? styles.completedTodo : ""
+      } ${todo.lineThrough ? styles.lineThrough : ""}`}
     >
-      <RiTodoFill className={styles.todoIcon} />
+      <RiTodoFill
+        className={styles.todoIcon}
+        onClick={() => lineThroughState(todo.id)}
+      />
       <div className={styles.todoText}>{todo.text}</div>
       <RiDeleteBin2Line
         className={styles.deleteIcon}

@@ -23,20 +23,21 @@ function App() {
   const toggleTodoHandler = (id) => {
     setTodos(
       todos.map(
+        // return new object
         (todo) =>
           todo.id === id ? { ...todo, completed: !todo.completed } : { ...todo } // return original todo;
       )
     );
   };
-  // const lineThroughHandler = (id) => {
-  //   setTodos(
-  //     todos.map((todo) =>
-  //       todo.id === id
-  //         ? { ...todo, lineThrough: !todo.lineThrough }
-  //         : { ...todo }
-  //     )
-  //   );
-  // };
+  const lineThroughState = (id) => {
+    setTodos(
+      todos.map((todo) =>
+        todo.id === id
+          ? { ...todo, lineThrough: !todo.lineThrough }
+          : { ...todo }
+      )
+    );
+  };
   const resetTodosHandler = () => {
     setTodos([]);
   };

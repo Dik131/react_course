@@ -43,7 +43,7 @@
   margin-right: 10px;
   color: teal;
 }
-.line-through {
+.lineThrough {
   text-decoration: line-through;
 }
 .completedTodo {
