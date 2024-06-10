@@ -5,8 +5,7 @@
   font-size: 32px;
 }
 body {
-  font-family: "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
-    "Fira Sans", "Droid Sans", "Helvetica Neue", serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Times New Roman", serif;
   color: white;
   background-color: #112d49;
 }
