@@ -3,7 +3,7 @@ import {
   RiDeleteBin2Line,
   RiCheckDoubleFill,
 } from "react-icons/ri";
-import { FaCheck } from "react-icons/fa";
+// import { FaCheck } from "react-icons/fa";
 import styles from "./Todo.module.css";
 
 const Todo = ({ todo, deleteTodo, toggleTodo, lineThrough }) => {
