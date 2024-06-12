@@ -78,3 +78,11 @@ nav a {
     font-size: 2rem;
   }
 }
+.singleCourse {
+  display: flex;
+  flex-direction: column;
+}
+.linkBack {
+  align-self: flex-end;
+  align-content: flex-end;
+}
