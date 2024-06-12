@@ -1,11 +1,14 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import courses from "../data/courses";
-// import NotFound from "./NotFound";
 import { useEffect } from "react";
+
+// import NotFound from "./NotFound";
+
 const SingleCourse = () => {
   const params = useParams();
   const navigate = useNavigate();
   const course = courses.find((course) => course.slug === params.slug);
+
   // a little harder way to show 404 page
   useEffect(() => {
     if (!course) {
@@ -25,6 +28,7 @@ const SingleCourse = () => {
   //   );
   // }
   // console.info(params);
+
   return (
     <div className="singleCourse">
       <h1>{course?.title}</h1>
