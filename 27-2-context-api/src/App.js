@@ -8,7 +8,6 @@ function App() {
   return (
     <UserContext.Provider value={{ user }}>
       <div className='App'>
-        {/* <User user={user} setUser={setUser} /> */}
         <User />
       </div>
     </UserContext.Provider>
