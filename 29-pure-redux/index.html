@@ -3,12 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      button {
+        cursor: pointer;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        padding: 0.5rem 1rem;
+        margin: 0.5rem;
+      }
+    </style>
     <title>Redux</title>
   </head>
   <body>
     <h1>Pure Redux</h1>
-    <button id="btn">Click me gently</button>
+    <button id="addTime">Gently add current time</button>
+    <button id="clearTimes">Clear all</button>
+    <ul id="timesList"></ul>
 
-    <script src="index.js"></script>
+    <script type="module" src="index.js"></script>
   </body>
 </html>
