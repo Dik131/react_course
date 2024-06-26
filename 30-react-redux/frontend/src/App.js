@@ -1,3 +1,6 @@
+import BookList from "./components/BookList/BookList";
+import Filter from "./components/Filter/Filter";
+import BookForm from "./components/BookForm/BookForm";
 import "./App.css";
 
 function App() {
@@ -6,7 +9,15 @@ function App() {
       <header className='app-header'>
         <h1>Book library app</h1>
       </header>
-      <main className='app-main'></main>
+      <main className='app-main'>
+        <div className='app-left-column'>
+          <BookForm />
+        </div>
+        <div className='app-right-column'>
+          {/* <Filter /> */}
+          <BookList />
+        </div>
+      </main>
     </div>
   );
 }
