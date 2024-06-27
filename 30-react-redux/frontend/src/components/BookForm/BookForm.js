@@ -9,7 +9,7 @@ const BookForm = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (title && author) {
-      console.log(title, author);
+  
       setAuthor("");
       setTitle("");
     }
