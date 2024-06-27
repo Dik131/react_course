@@ -1,17 +1,27 @@
-import { useState } from "react";
-import "./BookForm.css";
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addBook } from '../../redux/books/actionCreators';
+import './BookForm.css';
 const BookForm = () => {
-  const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("");
+  const [title, setTitle] = useState('');
+  const [author, setAuthor] = useState('');
   // if it's a lot of input fields, we can use next state to manage them
   // const [formData, setFormData] = useState({});
+
+  const dispatch = useDispatch();
 
   const handleSubmit = (event) => {
     event.preventDefault();
     if (title && author) {
-  
-      setAuthor("");
-      setTitle("");
+      const book = {
+        title,
+        author,
+      };
+
+      dispatch(addBook(book));
+
+      setAuthor('');
+      setTitle('');
     }
   };
   return (
