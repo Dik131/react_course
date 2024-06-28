@@ -15,7 +15,7 @@ const BookForm = () => {
     if (title && author) {
       const book = {
         title,
-        author,
+        author, 
       };
 
       dispatch(addBook(book)); // {type: 'ADD_BOOK', payload: book}
