@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { addBook } from '../../redux/books/actionCreators';
-import './BookForm.css';
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addBook } from "../../redux/books/actionCreators";
+import "./BookForm.css";
 const BookForm = () => {
-  const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
+  const [title, setTitle] = useState("");
+  const [author, setAuthor] = useState("");
   // if it's a lot of input fields, we can use next state to manage them
   // const [formData, setFormData] = useState({});
 
@@ -18,10 +18,10 @@ const BookForm = () => {
         author,
       };
 
-      dispatch(addBook(book));
+      dispatch(addBook(book)); // {type: 'ADD_BOOK', payload: book}
 
-      setAuthor('');
-      setTitle('');
+      setAuthor("");
+      setTitle("");
     }
   };
   return (
