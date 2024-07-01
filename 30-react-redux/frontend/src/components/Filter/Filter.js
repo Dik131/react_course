@@ -1,8 +1,13 @@
-import "./Filter.css";
+import './Filter.css';
 const Filter = () => {
   return (
     <div className='app-block filter'>
-      <h2>Filters</h2>
+      <div className='filter-group'>
+        <input type='text' placeholder='Filter by title' />
+      </div>
+      <div className='filter-group'>
+        <input type='text' placeholder='Filter by author' />
+      </div>
     </div>
   );
 };
