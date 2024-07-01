@@ -1,9 +1,12 @@
-import { configureStore } from "@reduxjs/toolkit";
-import booksReducer from "./books/reducer";
+import { configureStore } from '@reduxjs/toolkit';
+import booksReducer from './books/reducer';
+import filterReducer from './slices/filterSlice';
+// import filterSlice from './slices/filterSlice';
 
 const store = configureStore({
   reducer: {
     books: booksReducer,
+    filter: filterReducer,
   },
 });
 
