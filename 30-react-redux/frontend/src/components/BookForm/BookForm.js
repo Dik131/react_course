@@ -18,6 +18,7 @@ const BookForm = () => {
     const randomBookWithID = {
       ...randomBook,
       id: uuidv4(),
+      favorite: false,
     };
     dispatch(addBook(randomBookWithID));
   };
@@ -29,6 +30,7 @@ const BookForm = () => {
         title,
         author,
         id: uuidv4(),
+        favorite: false,
       };
 
       dispatch(addBook(book)); // {type: 'ADD_BOOK', payload: book}
