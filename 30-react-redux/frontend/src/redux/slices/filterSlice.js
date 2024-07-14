@@ -41,4 +41,6 @@ export const { setOnlyFavorite } = filterSlice.actions;
 
 export const { clearFilter } = filterSlice.actions;
 
+export const selectTitleFilter = (state) => state.filter.title;
+
 export default filterSlice.reducer;
