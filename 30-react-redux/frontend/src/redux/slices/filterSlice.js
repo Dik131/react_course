@@ -11,10 +11,20 @@ const filterSlice = createSlice({
   initialState,
   reducers: {
     setTitleFilter: (state, action) => {
-      return {
-        ...state,
-        title: action.payload,
-      };
+      // state = {
+      //   title: action.payload,
+      // };
+
+      // return state;
+
+      // the same as
+
+      return { ...state, title: action.payload };
+
+      // or ...
+
+      // we can do like this, because we use immer library
+      // state.title = action.payload;
     },
     setAuthorFilter: (state, action) => {
       return {
