@@ -40,10 +40,13 @@ const filterSlice = createSlice({
       state.author = '';
       state.onlyFavorite = false;
     },
+    resetFilters: (state) => {
+      return initialState;
+    },
   },
 });
 
-export const { setTitleFilter } = filterSlice.actions;
+export const { setTitleFilter, resetFilters } = filterSlice.actions;
 
 export const { setAuthorFilter } = filterSlice.actions;
 
