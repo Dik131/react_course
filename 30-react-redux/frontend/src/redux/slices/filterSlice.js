@@ -1,13 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  title: '',
-  author: '',
+  title: "",
+  author: "",
   onlyFavorite: false,
 };
 
 const filterSlice = createSlice({
-  name: 'filter',
+  name: "filter",
   initialState,
   reducers: {
     setTitleFilter: (state, action) => {
@@ -27,33 +27,37 @@ const filterSlice = createSlice({
       // state.title = action.payload;
     },
     setAuthorFilter: (state, action) => {
-      return {
-        ...state,
-        title: action.payload,
-      };
+      // return {
+      //   ...state,
+      //   title: action.payload,
+      // };
+      return { ...state, author: action.payload };
     },
     setOnlyFavorite(state, action) {
       state.onlyFavorite = action.payload;
     },
-    clearFilter(state) {
-      state.title = '';
-      state.author = '';
-      state.onlyFavorite = false;
-    },
+    // clearFilter(state) {
+    //   state.title = "";
+    //   state.author = "";
+    //   state.onlyFavorite = false;
+    // },
     resetFilters: (state) => {
       return initialState;
     },
   },
 });
 
-export const { setTitleFilter, resetFilters } = filterSlice.actions;
+export const {
+  setTitleFilter,
+  setAuthorFilter,
+  setOnlyFavorite,
+  resetFilters,
+} = filterSlice.actions;
 
-export const { setAuthorFilter } = filterSlice.actions;
-
-export const { setOnlyFavorite } = filterSlice.actions;
-
-export const { clearFilter } = filterSlice.actions;
+// export const { clearFilter } = filterSlice.actions;
 
 export const selectTitleFilter = (state) => state.filter.title;
+
+export const selectAuthorFilter = (state) => state.filter.author;
 
 export default filterSlice.reducer;

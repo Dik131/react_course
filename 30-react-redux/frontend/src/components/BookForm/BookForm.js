@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 // import { v4 as uuidv4 } from 'uuid';
-import { addBook } from '../../redux/books/actionCreators';
-import booksData from '../../data/books.json';
-import createBookWithId from '../../utils/createBookWithId';
-import './BookForm.css';
+import { addBook } from "../../redux/books/actionCreators";
+import booksData from "../../data/books.json";
+import createBookWithId from "../../utils/createBookWithId";
+import "./BookForm.css";
 const BookForm = () => {
-  const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
+  const [title, setTitle] = useState("");
+  const [author, setAuthor] = useState("");
   // if it's a lot of input fields, we can use next state to manage them
   // const [formData, setFormData] = useState({});
 
@@ -38,8 +38,8 @@ const BookForm = () => {
 
       dispatch(addBook(createBookWithId({ title, author }))); // {type: 'ADD_BOOK', payload: book}
 
-      setAuthor('');
-      setTitle('');
+      setAuthor("");
+      setTitle("");
     }
   };
   return (
@@ -67,6 +67,7 @@ const BookForm = () => {
             placeholder='Author'
           />
         </>
+        <br></br>
         <button type='submit'>Add a new book</button>
         <button type='button' onClick={handleAddRandomBook}>
           Random book

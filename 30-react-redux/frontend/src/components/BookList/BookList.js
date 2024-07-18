@@ -1,11 +1,15 @@
 import { useSelector, useDispatch } from "react-redux";
 import { BsBookmarkHeart, BsBookmarkHeartFill } from "react-icons/bs";
 import { deleteBook, toggleFavorite } from "../../redux/books/actionCreators";
-import { selectTitleFilter } from "../../redux/slices/filterSlice";
+import {
+  selectTitleFilter,
+  selectAuthorFilter,
+} from "../../redux/slices/filterSlice";
 import "./BookList.css";
 const BookList = () => {
   const books = useSelector((state) => state.books);
   const titleFilter = useSelector(selectTitleFilter);
+  const authorFilter = useSelector(selectAuthorFilter);
   const dispatch = useDispatch();
   const handleAddRandomBook = (id) => {
     dispatch(toggleFavorite(id));
@@ -19,7 +23,10 @@ const BookList = () => {
       .toLowerCase()
       .includes(titleFilter.toLowerCase());
     // console.log({ title: book.title, titleFilter, matchesTitle });
-    return matchesTitle;
+    const matchesAuthor = book.author
+      .toLowerCase()
+      .includes(authorFilter.toLowerCase());
+    return matchesTitle, matchesAuthor;
   });
 
   return (
@@ -33,7 +40,8 @@ const BookList = () => {
             {filteredBooks.map((book, i) => (
               <li key={book.id}>
                 <div className='book-info'>
-                  {++i}. {book.title} by <strong>{book.author}</strong>
+                  {++i}. <strong>{book.title}</strong> by{" "}
+                  <strong>{book.author}</strong>
                 </div>
                 <div className='book-actions'>
                   <span onClick={() => handleAddRandomBook(book.id)}>
