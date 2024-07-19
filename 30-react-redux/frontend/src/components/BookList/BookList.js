@@ -26,7 +26,7 @@ const BookList = () => {
     const matchesAuthor = book.author
       .toLowerCase()
       .includes(authorFilter.toLowerCase());
-    return matchesTitle, matchesAuthor;
+    return matchesTitle && matchesAuthor;
   });
 
   return (

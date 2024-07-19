@@ -19,19 +19,17 @@ const filterSlice = createSlice({
 
       // the same as
 
-      return { ...state, title: action.payload };
+      // return { ...state, title: action.payload };
 
       // or ...
 
       // we can do like this, because we use immer library
-      // state.title = action.payload;
+      state.title = action.payload;
     },
     setAuthorFilter: (state, action) => {
-      // return {
-      //   ...state,
-      //   title: action.payload,
-      // };
-      return { ...state, author: action.payload };
+      // return { ...state, author: action.payload };
+
+      state.author = action.payload;
     },
     setOnlyFavorite(state, action) {
       state.onlyFavorite = action.payload;
@@ -57,7 +55,6 @@ export const {
 // export const { clearFilter } = filterSlice.actions;
 
 export const selectTitleFilter = (state) => state.filter.title;
-
 export const selectAuthorFilter = (state) => state.filter.author;
 
 export default filterSlice.reducer;
