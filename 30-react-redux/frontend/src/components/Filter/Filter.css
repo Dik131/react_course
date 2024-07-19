@@ -4,6 +4,13 @@
   align-items: center;
 }
 
+.buttons-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
 .filter-group {
   flex: 1;
   text-align: center;
@@ -44,7 +51,10 @@
   }
 
   .filter button {
-    margin: 10px auto 0;
     max-width: 50%;
+  }
+
+  .buttons-row {
+    padding-bottom: 1rem;
   }
 }

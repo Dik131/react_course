@@ -31,15 +31,15 @@ const filterSlice = createSlice({
 
       state.author = action.payload;
     },
-    setOnlyFavorite(state, action) {
-      state.onlyFavorite = action.payload;
+    setOnlyFavorite(state) {
+      state.onlyFavorite = !state.onlyFavorite;
     },
     // clearFilter(state) {
     //   state.title = "";
     //   state.author = "";
     //   state.onlyFavorite = false;
     // },
-    resetFilters: (state) => {
+    resetFilters: () => {
       return initialState;
     },
   },
@@ -56,5 +56,6 @@ export const {
 
 export const selectTitleFilter = (state) => state.filter.title;
 export const selectAuthorFilter = (state) => state.filter.author;
+export const selectOnlyFavorite = (state) => state.filter.onlyFavorite;
 
 export default filterSlice.reducer;
