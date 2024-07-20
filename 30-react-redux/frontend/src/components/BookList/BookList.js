@@ -1,12 +1,12 @@
-import { useSelector, useDispatch } from "react-redux";
-import { BsBookmarkHeart, BsBookmarkHeartFill } from "react-icons/bs";
-import { deleteBook, toggleFavorite } from "../../redux/books/actionCreators";
+import { useSelector, useDispatch } from 'react-redux';
+import { BsBookmarkHeart, BsBookmarkHeartFill } from 'react-icons/bs';
+import { deleteBook, toggleFavorite } from '../../redux/books/actionCreators';
 import {
   selectTitleFilter,
   selectAuthorFilter,
   selectOnlyFavorite,
-} from "../../redux/slices/filterSlice";
-import "./BookList.css";
+} from '../../redux/slices/filterSlice';
+import './BookList.css';
 const BookList = () => {
   const books = useSelector((state) => state.books);
   const titleFilter = useSelector(selectTitleFilter);
@@ -32,6 +32,22 @@ const BookList = () => {
     return matchesTitle && matchesAuthor && matchesFavorite;
   });
 
+  const hightlightMatchedText = (text, filter) => {
+    if (!filter) {
+      return text;
+    }
+    const regex = new RegExp(`(${filter})`, 'gi'); // 'g' for global, 'i' for case insensitive
+    return text.split(regex).map((substring, index) => {
+      if (substring.toLowerCase() === filter.toLowerCase()) {
+        return (
+          <span key={index} className='highlight'>
+            {substring}
+          </span>
+        );
+      }
+      return substring;
+    });
+  };
   return (
     <div className='app-block book-list'>
       <h2>Book list</h2>
@@ -43,8 +59,14 @@ const BookList = () => {
             {filteredBooks.map((book, i) => (
               <li key={book.id}>
                 <div className='book-info'>
-                  {++i}. <strong>{book.title}</strong> by{" "}
-                  <strong>{book.author}</strong>
+                  {++i}.
+                  <strong>
+                    {hightlightMatchedText(book.title, titleFilter)}
+                  </strong>
+                  by
+                  <strong>
+                    {hightlightMatchedText(book.author, authorFilter)}
+                  </strong>
                 </div>
                 <div className='book-actions'>
                   <span onClick={() => handleAddRandomBook(book.id)}>
