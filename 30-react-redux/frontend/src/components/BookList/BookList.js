@@ -72,6 +72,7 @@ const BookList = () => {
                   <strong>
                     {hightlightMatchedText(book.author, authorFilter)}
                   </strong>
+                  ({book.source})
                 </div>
                 <div className='book-actions'>
                   <span onClick={() => handleAddRandomBook(book.id)}>

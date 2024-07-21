@@ -24,7 +24,7 @@ const BookForm = () => {
     //   id: uuidv4(),
     //   favorite: false,
     // };
-    dispatch(addBook(createBookWithId(randomBook)));
+    dispatch(addBook(createBookWithId(randomBook, 'rng')));
   };
 
   const handleSubmit = (event) => {
@@ -38,7 +38,7 @@ const BookForm = () => {
       //   favorite: false,
       // };
 
-      dispatch(addBook(createBookWithId({ title, author }))); // {type: 'ADD_BOOK', payload: book}
+      dispatch(addBook(createBookWithId({ title, author }, 'manual'))); // {type: 'ADD_BOOK', payload: book}
 
       setAuthor('');
       setTitle('');
@@ -50,7 +50,7 @@ const BookForm = () => {
     try {
       const response = await axios.get('http://localhost:5000/random-book');
       if (response?.data?.title && response?.data?.author) {
-        dispatch(addBook(createBookWithId(response.data)));
+        dispatch(addBook(createBookWithId(response.data, 'API')));
       }
     } catch (error) {
       console.log('Error from API', error);
