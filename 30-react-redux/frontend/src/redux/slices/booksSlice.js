@@ -1,16 +1,15 @@
-import axios from "axios";
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import createBookWithId from "../../utils/createBookWithId";
+import axios from 'axios';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import createBookWithId from '../../utils/createBookWithId';
 
 const initialState = [];
-
-export const fetchBook = createAsyncThunk("books/fetchBook", async () => {
-  const response = await axios.get("http://localhost:5000/random-book");
+export const fetchBook = createAsyncThunk('books/fetchBook', async () => {
+  const response = await axios.get('http://localhost:5005/random-book');
   return response.data;
 });
 
 const booksSlice = createSlice({
-  name: "books",
+  name: 'books',
   initialState,
   reducers: {
     addBook: (state, action) => {
@@ -41,8 +40,12 @@ const booksSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchBook.fulfilled, (state, action) => {
       if (action.payload.title && action.payload.author) {
-        state.push(createBookWithId(action.payload, "API"));
+        state.push(createBookWithId(action.payload, 'API'));
       }
+    });
+
+    builder.addCase(fetchBook.rejected, (state, action) => {
+      console.log('Error from API', action.error);
     });
   },
 });
