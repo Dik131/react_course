@@ -1,15 +1,14 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import axios from 'axios';
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 // import { v4 as uuidv4 } from 'uuid';
 // import { addBook } from '../../redux/books/actionCreators';
-import { addBook } from '../../redux/slices/booksSlice';
-import booksData from '../../data/books.json';
-import createBookWithId from '../../utils/createBookWithId';
-import './BookForm.css';
+import { addBook, fetchBook } from "../../redux/slices/booksSlice";
+import booksData from "../../data/books.json";
+import createBookWithId from "../../utils/createBookWithId";
+import "./BookForm.css";
 const BookForm = () => {
-  const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
+  const [title, setTitle] = useState("");
+  const [author, setAuthor] = useState("");
   // if it's a lot of input fields, we can use next state to manage them
   // const [formData, setFormData] = useState({});
 
@@ -24,7 +23,7 @@ const BookForm = () => {
     //   id: uuidv4(),
     //   favorite: false,
     // };
-    dispatch(addBook(createBookWithId(randomBook, 'rng')));
+    dispatch(addBook(createBookWithId(randomBook, "rng")));
   };
 
   const handleSubmit = (event) => {
@@ -38,23 +37,26 @@ const BookForm = () => {
       //   favorite: false,
       // };
 
-      dispatch(addBook(createBookWithId({ title, author }, 'manual'))); // {type: 'ADD_BOOK', payload: book}
+      dispatch(addBook(createBookWithId({ title, author }, "manual"))); // {type: 'ADD_BOOK', payload: book}
 
-      setAuthor('');
-      setTitle('');
+      setAuthor("");
+      setTitle("");
     }
   };
 
   //API request
-  const handleAddBookViaAPI = async () => {
-    try {
-      const response = await axios.get('http://localhost:5000/random-book');
-      if (response?.data?.title && response?.data?.author) {
-        dispatch(addBook(createBookWithId(response.data, 'API')));
-      }
-    } catch (error) {
-      console.log('Error from API', error);
-    }
+
+  const handleAddBookViaAPI = () => {
+    dispatch(fetchBook());
+
+    //   try {
+    //     const response = await axios.get('http://localhost:5000/random-book');
+    //     if (response?.data?.title && response?.data?.author) {
+    //       dispatch(addBook(createBookWithId(response.data, 'API')));
+    //     }
+    //   } catch (error) {
+    //     console.log('Error from API', error);
+    //   }
 
     // same but with axios
     // fetch('localhost:5000/random-book', {)
