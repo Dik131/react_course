@@ -1,16 +1,16 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 // import { v4 as uuidv4 } from 'uuid';
 // import { addBook } from '../../redux/books/actionCreators';
-import { addBook, fetchBook } from '../../redux/slices/booksSlice';
-import booksData from '../../data/books.json';
-import createBookWithId from '../../utils/createBookWithId';
-import './BookForm.css';
-import { setError } from '../../redux/slices/errorSlice';
+import { addBook, fetchBook } from "../../redux/slices/booksSlice";
+import booksData from "../../data/books.json";
+import createBookWithId from "../../utils/createBookWithId";
+import "./BookForm.css";
+import { setError } from "../../redux/slices/errorSlice";
 
 const BookForm = () => {
-  const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
+  const [title, setTitle] = useState("");
+  const [author, setAuthor] = useState("");
   // if it's a lot of input fields, we can use next state to manage them
   // const [formData, setFormData] = useState({});
 
@@ -25,7 +25,7 @@ const BookForm = () => {
     //   id: uuidv4(),
     //   favorite: false,
     // };
-    dispatch(addBook(createBookWithId(randomBook, 'rng')));
+    dispatch(addBook(createBookWithId(randomBook, "rng")));
   };
 
   const handleSubmit = (event) => {
@@ -39,18 +39,18 @@ const BookForm = () => {
       //   favorite: false,
       // };
 
-      dispatch(addBook(createBookWithId({ title, author }, 'manual'))); // {type: 'ADD_BOOK', payload: book}
-      setAuthor('');
-      setTitle('');
+      dispatch(addBook(createBookWithId({ title, author }, "manual"))); // {type: 'ADD_BOOK', payload: book}
+      setAuthor("");
+      setTitle("");
     } else {
-      dispatch(setError('Title and author are required!'));
+      dispatch(setError("Title and author are required!"));
     }
   };
 
   //API request
 
   const handleAddBookViaAPI = () => {
-    dispatch(fetchBook());
+    dispatch(fetchBook("http://localhost:5000/random-book-delayed"));
 
     //   try {
     //     const response = await axios.get('http://localhost:5000/random-book');

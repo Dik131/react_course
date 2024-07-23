@@ -1,17 +1,17 @@
-import { useSelector, useDispatch } from 'react-redux';
-import { BsBookmarkHeart, BsBookmarkHeartFill } from 'react-icons/bs';
+import { useSelector, useDispatch } from "react-redux";
+import { BsBookmarkHeart, BsBookmarkHeartFill } from "react-icons/bs";
 // import { deleteBook, toggleFavorite } from '../../redux/books/actionCreators';
 import {
   deleteBook,
   toggleFavorite,
   selectBooks,
-} from '../../redux/slices/booksSlice';
+} from "../../redux/slices/booksSlice";
 import {
   selectTitleFilter,
   selectAuthorFilter,
   selectOnlyFavorite,
-} from '../../redux/slices/filterSlice';
-import './BookList.css';
+} from "../../redux/slices/filterSlice";
+import "./BookList.css";
 const BookList = () => {
   const books = useSelector(selectBooks);
   const titleFilter = useSelector(selectTitleFilter);
@@ -41,7 +41,7 @@ const BookList = () => {
     if (!filter) {
       return text;
     }
-    const regex = new RegExp(`(${filter})`, 'gi'); // 'g' for global, 'i' for case insensitive
+    const regex = new RegExp(`(${filter})`, "gi"); // 'g' for global, 'i' for case insensitive
     return text.split(regex).map((substring, index) => {
       if (substring.toLowerCase() === filter.toLowerCase()) {
         return (
@@ -64,14 +64,14 @@ const BookList = () => {
             {filteredBooks.map((book, i) => (
               <li key={book.id}>
                 <div className='book-info'>
-                  {++i}.{' '}
+                  {++i}.{" "}
                   <strong>
                     <i>{hightlightMatchedText(book.title, titleFilter)}</i>
-                  </strong>{' '}
-                  by{' '}
+                  </strong>{" "}
+                  by{" "}
                   <strong>
                     {hightlightMatchedText(book.author, authorFilter)}
-                  </strong>
+                  </strong>{" "}
                   ({book.source})
                 </div>
                 <div className='book-actions'>
