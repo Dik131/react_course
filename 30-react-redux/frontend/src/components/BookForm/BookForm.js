@@ -1,9 +1,13 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { FaSpinner } from "react-icons/fa";
 // import { v4 as uuidv4 } from 'uuid';
 // import { addBook } from '../../redux/books/actionCreators';
-import { addBook, fetchBook } from "../../redux/slices/booksSlice";
+import {
+  addBook,
+  fetchBook,
+  selectIsLoadingViaAPI,
+} from "../../redux/slices/booksSlice";
 import booksData from "../../data/books.json";
 import createBookWithId from "../../utils/createBookWithId";
 import "./BookForm.css";
@@ -14,7 +18,8 @@ const BookForm = () => {
   const [author, setAuthor] = useState("");
   // if it's a lot of input fields, we can use next state to manage them
   // const [formData, setFormData] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
+  const isLoadingViaAPI = useSelector(selectIsLoadingViaAPI);
+  // const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
 
   const handleAddRandomBook = () => {
@@ -50,13 +55,14 @@ const BookForm = () => {
 
   //API request
 
-  const handleAddBookViaAPI = async () => {
-    try {
-      setIsLoading(true);
-      await dispatch(fetchBook("http://localhost:5000/random-book-delayed"));
-    } finally {
-      setIsLoading(false);
-    }
+  const handleAddBookViaAPI = () => {
+    dispatch(fetchBook("http://localhost:5000/random-book-delayed"));
+    // try {
+    //   setIsLoading(true);
+    //   await dispatch(fetchBook("http://localhost:5000/random-book-delayed"));
+    // } finally {
+    //   setIsLoading(false);
+    // }
 
     //   try {
     //     const response = await axios.get('http://localhost:5000/random-book');
@@ -109,9 +115,9 @@ const BookForm = () => {
         <button
           type='button'
           onClick={handleAddBookViaAPI}
-          disabled={isLoading}
+          disabled={isLoadingViaAPI}
         >
-          {isLoading ? (
+          {isLoadingViaAPI ? (
             <>
               <span>Loading...</span>
               <FaSpinner className='spinner' />

@@ -15,7 +15,8 @@ export const fetchBook = createAsyncThunk(
       return response.data;
     } catch (error) {
       thunkAPI.dispatch(setError(error.message));
-      throw error;
+      // throw error;
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
@@ -74,7 +75,8 @@ const booksSlice = createSlice({
       state.isLoadingViaAPI = true;
     });
     builder.addCase(fetchBook.fulfilled, (state, action) => {
-      if (action.payload.title && action.payload.author) {
+      state.isLoadingViaAPI = false;
+      if (action?.payload?.title && action?.payload?.author) {
         state.books.push(createBookWithId(action.payload, "API"));
       }
     });
@@ -104,4 +106,6 @@ export const { addBook, deleteBook, toggleFavorite } = booksSlice.actions;
 // };
 
 export const selectBooks = (state) => state.books.books;
+export const selectIsLoadingViaAPI = (state) => state.books.isLoadingViaAPI;
+
 export default booksSlice.reducer;
