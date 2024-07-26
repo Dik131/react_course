@@ -1,0 +1,22 @@
+* {
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+  font-size: 36px;
+}
+body {
+  font-family: "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+    "Fira Sans", "Droid Sans", "Helvetica Neue", serif;
+  color: white;
+  background-color: #112d49;
+}
+@media screen and (max-width: 500px) {
+  * {
+    font-size: 16px;
+  }
+}
+@media screen and (max-width: 300px) {
+  * {
+    font-size: 12px;
+  }
+}
