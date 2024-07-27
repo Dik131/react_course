@@ -15,7 +15,7 @@ import filterReducer from './slices/filterSlice';
 import errorReducer from './slices/errorSlice';
 
 const rootReducer = combineReducers({
-  books: todoReducer,
+  todos: todoReducer,
   filter: filterReducer,
   error: errorReducer,
 });

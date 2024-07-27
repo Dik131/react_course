@@ -1,23 +1,25 @@
-import { useState } from "react";
-import Button from "../UI/Button";
-import styles from "./TodoForm.module.css";
+import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { addTodo } from '../../redux/slices/todoSlice';
+import Button from '../UI/Button';
+import styles from './TodoForm.module.css';
 
 const TodoForm = ({ addTodo }) => {
-  const [text, setText] = useState("");
+  const [text, setText] = useState('');
   const onSubmitHandler = (event) => {
     event.preventDefault();
     addTodo(text);
-    setText("");
+    setText('');
   };
   return (
     <div className={styles.TodoFormWrapper}>
       <form onSubmit={onSubmitHandler}>
         <input
-          placeholder="Enter Todo"
+          placeholder='Enter Todo'
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
-        <Button type="submit" title="Add Todo" disabled={!text}>
+        <Button type='submit' title='Add Todo' disabled={!text}>
           Submit
         </Button>
       </form>

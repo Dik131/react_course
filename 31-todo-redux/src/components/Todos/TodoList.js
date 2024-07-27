@@ -1,4 +1,6 @@
-import Todo from "./Todo";
+import { useSelector, useDispatch } from 'react-redux';
+import { addTodo, toggleTodo, deleteTodo } from '../../redux/slices/todoSlice';
+import Todo from './Todo';
 
 const TodoList = ({ todos, deleteTodo, toggleTodo }) => {
   return (
