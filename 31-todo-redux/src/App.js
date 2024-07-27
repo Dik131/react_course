@@ -12,7 +12,6 @@ function App() {
     const newTodo = {
       text,
       completed: false,
-      lineThrough: false,
       id: uuidv4(),
     };
     setTodos([...todos, newTodo]);
