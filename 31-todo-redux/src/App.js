@@ -27,15 +27,6 @@ function App() {
       )
     );
   };
-  const lineThroughState = (id) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id
-          ? { ...todo, lineThrough: !todo.lineThrough }
-          : { ...todo }
-      )
-    );
-  };
   const resetTodosHandler = () => {
     setTodos([]);
   };
