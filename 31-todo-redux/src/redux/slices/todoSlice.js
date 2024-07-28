@@ -14,10 +14,10 @@ const todosSlice = createSlice({
     deleteTodo: (state, action) => {
       return {
         ...state,
-        books: state.todos.filter((todo) => todo.id !== action.payload),
+        todos: state.todos.filter((todo) => todo.id !== action.payload),
       };
     },
-    toggleFavorite: (state, action) => {
+    toggleTodo: (state, action) => {
       state.todos.forEach((todo) => {
         if (todo.id === action.payload) {
           todo.favorite = !todo.favorite;
@@ -27,8 +27,8 @@ const todosSlice = createSlice({
   },
 });
 
-export const { addTodo, deleteTodo, toggleFavorite } = todosSlice.actions;
+export const { addTodo, deleteTodo, toggleTodo } = todosSlice.actions;
 
-export const selectBooks = (state) => state.todos.books;
+export const selectTodos = (state) => state.todos.todos;
 
 export default todosSlice.reducer;

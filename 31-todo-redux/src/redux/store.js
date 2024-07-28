@@ -11,13 +11,9 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import todoReducer from './slices/todoSlice';
-import filterReducer from './slices/filterSlice';
-import errorReducer from './slices/errorSlice';
 
 const rootReducer = combineReducers({
   todos: todoReducer,
-  filter: filterReducer,
-  error: errorReducer,
 });
 
 const persistConfig = {
