@@ -1,11 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   todos: [],
 };
 
 const todosSlice = createSlice({
-  name: 'todos',
+  name: "todos",
   initialState,
   reducers: {
     addTodo: (state, action) => {
@@ -20,7 +20,7 @@ const todosSlice = createSlice({
     toggleTodo: (state, action) => {
       state.todos.forEach((todo) => {
         if (todo.id === action.payload) {
-          todo.favorite = !todo.favorite;
+          todo.completed = !todo.completed;
         }
       });
     },
