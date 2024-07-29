@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { createSlice } from "@reduxjs/toolkit";
 =======
 import { createSlice } from '@reduxjs/toolkit';
@@ -7,6 +8,9 @@ import { v4 as uuidv4 } from 'uuid';
 =======
 >>>>>>> c02dacb (moved todo state from app.js to slice)
 >>>>>>> main
+=======
+import { createSlice } from "@reduxjs/toolkit";
+>>>>>>> b53d729 (min changes)
 
 const initialState = {
   todos: [],
@@ -28,9 +32,17 @@ const todosSlice = createSlice({
       state.todos = state.todos.filter((todo) => todo.id !== action.payload);
     },
     toggleTodo: (state, action) => {
+<<<<<<< HEAD
       const index = state.todos.findIndex((todo) => todo.id === action.payload);
       state.todos[index].completed = !state.todos[index].completed;
       state.todos[index].lineThrough = !state.todos[index].lineThrough;
+=======
+      state.todos.forEach((todo) => {
+        if (todo.id === action.payload) {
+          todo.completed = !todo.completed;
+        }
+      });
+>>>>>>> b53d729 (min changes)
     },
   },
 });
