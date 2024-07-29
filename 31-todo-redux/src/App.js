@@ -1,6 +1,5 @@
-<<<<<<< HEAD
-import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   addTodo,
   toggleTodo,
