@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { addTodo, selectTodos } from '../../redux/slices/todoSlice';
+import { useDispatch } from 'react-redux';
+import { addTodo } from '../../redux/slices/todoSlice';
 import Button from '../UI/Button';
 import styles from './TodoForm.module.css';
 
@@ -16,6 +16,7 @@ const TodoForm = () => {
     <div className={styles.TodoFormWrapper}>
       <form onSubmit={onSubmitHandler}>
         <input
+          type='text'
           placeholder='Enter Todo'
           value={text}
           onChange={(e) => setText(e.target.value)}
