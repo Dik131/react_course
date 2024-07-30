@@ -8,7 +8,7 @@ function App() {
     <div className='App'>
       <h1>Todo App</h1>
       <TodoForm />
-      <TodosActions />
+      {/* <TodosActions /> */}
       <TodoList />
     </div>
   );
