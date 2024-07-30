@@ -9,6 +9,7 @@ import styles from './Todo.module.css';
 
 const Todo = () => {
 <<<<<<< HEAD
+<<<<<<< HEAD
   const todos = useSelector((state) => state.todos.todos);
   const dispatch = useDispatch();
 =======
@@ -17,6 +18,10 @@ const Todo = () => {
   const deleteTodo = (id) => dispatch(deleteTodo(id));
   const toggleTodo = (id) => dispatch(toggleTodo(id));
 >>>>>>> 8468324 (moved todo state from app.js to slice)
+=======
+  const todos = useSelector((state) => state.todos.todos);
+  const dispatch = useDispatch();
+>>>>>>> a77f308 (the last commit for today)
   return (
     <div className={styles.todo}>
       <RiTodoFill className={styles.todoIcon} />
