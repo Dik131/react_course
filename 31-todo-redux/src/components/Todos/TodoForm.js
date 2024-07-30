@@ -1,14 +1,15 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addTodo } from '../../redux/slices/todoSlice';
+import { addTodo, selectTodos } from '../../redux/slices/todoSlice';
 import Button from '../UI/Button';
 import styles from './TodoForm.module.css';
 
-const TodoForm = ({ addTodo }) => {
+const TodoForm = () => {
   const [text, setText] = useState('');
+  const dispatch = useDispatch();
   const onSubmitHandler = (event) => {
     event.preventDefault();
-    addTodo(text);
+    dispatch(addTodo(text));
     setText('');
   };
   return (

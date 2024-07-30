@@ -20,7 +20,7 @@ const todosSlice = createSlice({
     toggleTodo: (state, action) => {
       state.todos.forEach((todo) => {
         if (todo.id === action.payload) {
-          todo.favorite = !todo.favorite;
+          todo.completed = !todo.completed;
         }
       });
     },
