@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+=======
+<<<<<<< HEAD
+import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+>>>>>>> 7a0edcd (added logic for bookForm)
 import {
   addTodo,
   toggleTodo,
@@ -49,6 +55,9 @@ function App() {
       <TodoForm />
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7a0edcd (added logic for bookForm)
       {!!todos.length && (
         <TodosActions completedTodosExists={!!completedTodosCount} />
       )}
@@ -61,9 +70,12 @@ function App() {
       )}
 =======
       <TodosActions />
+<<<<<<< HEAD
 =======
       {/* <TodosActions /> */}
 >>>>>>> 47dda6e (the last commit for today)
+=======
+>>>>>>> 7a0edcd (added logic for bookForm)
       <TodoList />
 >>>>>>> 1b214a1 (added logic for bookForm)
     </div>
