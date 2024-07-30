@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 =======
@@ -42,17 +43,19 @@ function App() {
   const completedTodosCount = todos.filter((todo) => todo.completed).length;
 
 =======
+=======
+>>>>>>> 79c5694 (resolved git errors)
 import TodoForm from './components/Todos/TodoForm';
 import TodoList from './components/Todos/TodoList';
 import TodosActions from './components/Todos/TodosActions';
 import './App.css';
 
 function App() {
->>>>>>> 1b214a1 (added logic for bookForm)
   return (
     <div className='App'>
       <h1>Todo App</h1>
       <TodoForm />
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -87,6 +90,10 @@ function App() {
 >>>>>>> a77f308 (the last commit for today)
       <TodoList />
 >>>>>>> 1b214a1 (added logic for bookForm)
+=======
+
+      <TodoList />
+>>>>>>> 79c5694 (resolved git errors)
     </div>
   );
 }
