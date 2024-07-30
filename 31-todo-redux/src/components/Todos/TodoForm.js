@@ -2,6 +2,7 @@ import { useState } from 'react';
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { useDispatch } from 'react-redux';
 import { addTodo } from '../../redux/slices/todoSlice';
 =======
@@ -16,6 +17,10 @@ import { addTodo } from '../../redux/slices/todoSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { addTodo, selectTodos } from '../../redux/slices/todoSlice';
 >>>>>>> 7a0edcd (added logic for bookForm)
+=======
+import { useDispatch } from 'react-redux';
+import { addTodo } from '../../redux/slices/todoSlice';
+>>>>>>> 8468324 (moved todo state from app.js to slice)
 import Button from '../UI/Button';
 import styles from './TodoForm.module.css';
 
