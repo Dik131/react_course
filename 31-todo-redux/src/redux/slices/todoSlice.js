@@ -1,9 +1,13 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8468324 (moved todo state from app.js to slice)
 import { createSlice } from "@reduxjs/toolkit";
 =======
 import { createSlice } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 >>>>>>> c02dacb (moved todo state from app.js to slice)
@@ -11,6 +15,9 @@ import { v4 as uuidv4 } from 'uuid';
 =======
 import { createSlice } from "@reduxjs/toolkit";
 >>>>>>> b53d729 (min changes)
+=======
+>>>>>>> c02dacb (moved todo state from app.js to slice)
+>>>>>>> 8468324 (moved todo state from app.js to slice)
 
 const initialState = {
   todos: [],

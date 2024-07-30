@@ -8,8 +8,15 @@ import { deleteTodo, toggleTodo } from '../../redux/slices/todoSlice';
 import styles from './Todo.module.css';
 
 const Todo = () => {
+<<<<<<< HEAD
   const todos = useSelector((state) => state.todos.todos);
   const dispatch = useDispatch();
+=======
+  const todo = useSelector((state) => state.todos.todos[0]);
+  const dispatch = useDispatch();
+  const deleteTodo = (id) => dispatch(deleteTodo(id));
+  const toggleTodo = (id) => dispatch(toggleTodo(id));
+>>>>>>> 8468324 (moved todo state from app.js to slice)
   return (
     <div className={styles.todo}>
       <RiTodoFill className={styles.todoIcon} />
