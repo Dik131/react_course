@@ -22,17 +22,12 @@ const todosSlice = createSlice({
       });
     },
     deleteTodo: (state, action) => {
-      return {
-        ...state,
-        todos: state.todos.filter((todo) => todo.id !== action.payload),
-      };
+      state.todos = state.todos.filter((todo) => todo.id !== action.payload);
     },
     toggleTodo: (state, action) => {
-      state.todos.forEach((todo) => {
-        if (todo.id === action.payload) {
-          todo.completed = !todo.completed;
-        }
-      });
+      const index = state.todos.findIndex((todo) => todo.id === action.payload);
+      state.todos[index].completed = !state.todos[index].completed;
+      state.todos[index].lineThrough = !state.todos[index].lineThrough;
     },
   },
 });

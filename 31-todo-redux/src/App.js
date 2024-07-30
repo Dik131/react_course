@@ -49,6 +49,7 @@ function App() {
       <h1>Todo App</h1>
       <TodoForm />
 <<<<<<< HEAD
+<<<<<<< HEAD
       {!!todos.length && (
         <TodosActions completedTodosExists={!!completedTodosCount} />
       )}
@@ -61,6 +62,9 @@ function App() {
       )}
 =======
       <TodosActions />
+=======
+      {/* <TodosActions /> */}
+>>>>>>> 47dda6e (the last commit for today)
       <TodoList />
 >>>>>>> 1b214a1 (added logic for bookForm)
     </div>
