@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { v4 as uuidv4 } from 'uuid';
 
 const initialState = {
   todos: [],
@@ -9,7 +10,12 @@ const todosSlice = createSlice({
   initialState,
   reducers: {
     addTodo: (state, action) => {
-      state.todos.push(action.payload);
+      state.todos.push({
+        id: uuidv4(),
+        text: action.payload,
+        completed: false,
+        lineThrough: false,
+      });
     },
     deleteTodo: (state, action) => {
       return {

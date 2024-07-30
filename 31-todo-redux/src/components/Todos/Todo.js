@@ -3,9 +3,15 @@ import {
   RiDeleteBin2Line,
   RiCheckDoubleFill,
 } from 'react-icons/ri';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteTodo, toggleTodo } from '../../redux/slices/todoSlice';
 import styles from './Todo.module.css';
 
-const Todo = ({ todo, deleteTodo, toggleTodo }) => {
+const Todo = () => {
+  const todo = useSelector((state) => state.todos.todos[0]);
+  const dispatch = useDispatch();
+  const deleteTodo = (id) => dispatch(deleteTodo(id));
+  const toggleTodo = (id) => dispatch(toggleTodo(id));
   return (
     <div
       className={`${styles.todo} ${
