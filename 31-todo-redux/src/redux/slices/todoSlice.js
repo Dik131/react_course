@@ -52,6 +52,7 @@ const todosSlice = createSlice({
     toggleTodo: (state, action) => {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       const index = state.todos.findIndex((todo) => todo.id === action.payload);
       state.todos[index].completed = !state.todos[index].completed;
       state.todos[index].lineThrough = !state.todos[index].lineThrough;
@@ -62,6 +63,11 @@ const todosSlice = createSlice({
         }
       });
 >>>>>>> b53d729 (min changes)
+=======
+      const index = state.todos.findIndex((todo) => todo.id === action.payload);
+      state.todos[index].completed = !state.todos[index].completed;
+      state.todos[index].lineThrough = !state.todos[index].lineThrough;
+>>>>>>> a77f308 (the last commit for today)
 =======
       const index = state.todos.findIndex((todo) => todo.id === action.payload);
       state.todos[index].completed = !state.todos[index].completed;

@@ -56,8 +56,11 @@ function App() {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 7a0edcd (added logic for bookForm)
+=======
+>>>>>>> a77f308 (the last commit for today)
       {!!todos.length && (
         <TodosActions completedTodosExists={!!completedTodosCount} />
       )}
@@ -71,11 +74,17 @@ function App() {
 =======
       <TodosActions />
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
       {/* <TodosActions /> */}
 >>>>>>> 47dda6e (the last commit for today)
 =======
 >>>>>>> 7a0edcd (added logic for bookForm)
+=======
+=======
+      {/* <TodosActions /> */}
+>>>>>>> 47dda6e (the last commit for today)
+>>>>>>> a77f308 (the last commit for today)
       <TodoList />
 >>>>>>> 1b214a1 (added logic for bookForm)
     </div>
