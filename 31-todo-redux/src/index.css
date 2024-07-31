@@ -6,9 +6,33 @@
 }
 body {
   font-family: "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
-    "Fira Sans", "Droid Sans", "Helvetica Neue", serif;
-  color: white;
-  background-color: #112d49;
+    "Fira Sans", "Droid Sans", "Helvetica Neue", "montserrat", serif;
+  color: #112d49;
+  background-image: linear-gradient(
+    125deg,
+    #112d49,
+    #1e90ff,
+    #008080,
+    #3cb371,
+    #48d1cc,
+    #9370db,
+    #8b68eb,
+    #4042d4,
+    #222cb2
+  );
+  background-size: 400% 600%;
+  animation: bganimation 14s infinite;
+}
+@keyframes bganimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 @media screen and (max-width: 500px) {
   * {

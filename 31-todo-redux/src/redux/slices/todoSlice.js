@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 import { createSlice } from "@reduxjs/toolkit";
-=======
-import { createSlice } from '@reduxjs/toolkit';
-import { v4 as uuidv4 } from 'uuid';
->>>>>>> c02dacb (moved todo state from app.js to slice)
+import { v4 as uuidv4 } from "uuid";
 
 const initialState = {
   todos: [],
