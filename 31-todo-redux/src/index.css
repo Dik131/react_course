@@ -21,7 +21,7 @@ body {
     #222cb2
   );
   background-size: 400% 600%;
-  animation: bganimation 14s infinite;
+  animation: bganimation 25s infinite;
 }
 @keyframes bganimation {
   0% {
