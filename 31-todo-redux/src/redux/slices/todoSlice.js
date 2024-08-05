@@ -5,7 +5,7 @@ const initialState = {
   todos: [],
 };
 
-const todosSlice = createSlice({
+const todoSlice = createSlice({
   name: "todos",
   initialState,
   reducers: {
@@ -14,22 +14,29 @@ const todosSlice = createSlice({
         id: uuidv4(),
         text: action.payload,
         completed: false,
-        lineThrough: false,
       });
     },
     deleteTodo: (state, action) => {
       state.todos = state.todos.filter((todo) => todo.id !== action.payload);
     },
     toggleTodo: (state, action) => {
-      const index = state.todos.findIndex((todo) => todo.id === action.payload);
-      state.todos[index].completed = !state.todos[index].completed;
-      state.todos[index].lineThrough = !state.todos[index].lineThrough;
+      const todo = state.todos.find((todo) => todo.id === action.payload);
+      if (todo) {
+        todo.completed = !todo.completed;
+      }
+    },
+    updateTodoText: (state, action) => {
+      const { id, text } = action.payload;
+      const todo = state.todos.find((todo) => todo.id === id);
+      if (todo) {
+        todo.text = text;
+      }
     },
   },
 });
 
-export const { addTodo, deleteTodo, toggleTodo } = todosSlice.actions;
+export const { addTodo, deleteTodo, toggleTodo, updateTodoText } = todoSlice.actions;
 
 export const selectTodos = (state) => state.todos.todos;
 
-export default todosSlice.reducer;
+export default todoSlice.reducer;

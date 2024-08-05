@@ -7,11 +7,15 @@ import styles from './TodoForm.module.css';
 const TodoForm = () => {
   const [text, setText] = useState('');
   const dispatch = useDispatch();
+
   const onSubmitHandler = (event) => {
     event.preventDefault();
-    dispatch(addTodo(text));
-    setText('');
+    if (text.trim()) {
+      dispatch(addTodo(text.trim()));
+      setText('');
+    }
   };
+
   return (
     <div className={styles.TodoFormWrapper}>
       <form onSubmit={onSubmitHandler}>
@@ -21,7 +25,7 @@ const TodoForm = () => {
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
-        <Button type='submit' title='Add Todo' disabled={!text}>
+        <Button type='submit' title='Add Todo' disabled={!text.trim()}>
           Submit
         </Button>
       </form>
