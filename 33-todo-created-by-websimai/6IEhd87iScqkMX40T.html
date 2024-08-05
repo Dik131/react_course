@@ -1,0 +1,299 @@
+<html>
+  <head>
+    <base href="." />
+    <title>Adaptive Todo App with React and Redux Toolkit</title>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@reduxjs/toolkit@1.6.1/dist/redux-toolkit.umd.min.js"></script>
+    <script src="https://unpkg.com/react-redux@7.2.4/dist/react-redux.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #1a237e; /* Dark blue background */
+        color: #ffffff;
+      }
+      #root {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .app {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #ffffff;
+      }
+      .input-container {
+        display: flex;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+      }
+      input {
+        flex-grow: 1;
+        padding: 10px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        color: #333;
+        background-color: #ffffff;
+      }
+      button {
+        background-color: #ffffff;
+        color: #1a237e;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
+        border-radius: 5px;
+        margin-bottom: 10px;
+      }
+      button:hover {
+        background-color: #e0e0e0;
+        color: #0d47a1;
+      }
+      .todo-actions {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+      }
+      .todo-list {
+        list-style-type: none;
+        padding: 0;
+      }
+      .todo-item {
+        background-color: #ffffff;
+        color: #1a237e;
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .todo-item button {
+        margin-left: 10px;
+        margin-top: 5px;
+      }
+      .empty-list {
+        text-align: center;
+        font-style: italic;
+        color: #ffffff;
+      }
+      @media (max-width: 600px) {
+        .todo-item {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .todo-item button {
+          margin-left: 0;
+          margin-top: 10px;
+        }
+        .todo-actions {
+          flex-direction: column;
+        }
+        .todo-actions button {
+          width: 100%;
+          margin-bottom: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      const { Provider, useSelector, useDispatch } = ReactRedux;
+      const { configureStore, createSlice } = RTK;
+
+      // Load todos from localStorage
+      const loadTodos = () => {
+        try {
+          const serializedTodos = localStorage.getItem('todos');
+          if (serializedTodos === null) {
+            return [];
+          }
+          return JSON.parse(serializedTodos);
+        } catch (err) {
+          console.error('Error loading todos from localStorage:', err);
+          return [];
+        }
+      };
+
+      // Save todos to localStorage
+      const saveTodos = (todos) => {
+        try {
+          const serializedTodos = JSON.stringify(todos);
+          localStorage.setItem('todos', serializedTodos);
+        } catch (err) {
+          console.error('Error saving todos to localStorage:', err);
+        }
+      };
+
+      // Redux slice
+      const todoSlice = createSlice({
+        name: 'todos',
+        initialState: loadTodos(),
+        reducers: {
+          addTodo: (state, action) => {
+            state.push({
+              id: Date.now(),
+              text: action.payload,
+              completed: false,
+            });
+            saveTodos(state);
+          },
+          toggleTodo: (state, action) => {
+            const todo = state.find((todo) => todo.id === action.payload);
+            if (todo) {
+              todo.completed = !todo.completed;
+              saveTodos(state);
+            }
+          },
+          deleteTodo: (state, action) => {
+            const newState = state.filter((todo) => todo.id !== action.payload);
+            saveTodos(newState);
+            return newState;
+          },
+          deleteCompleted: (state) => {
+            const newState = state.filter((todo) => !todo.completed);
+            saveTodos(newState);
+            return newState;
+          },
+          resetAllTodos: (state) => {
+            saveTodos([]);
+            return [];
+          },
+        },
+      });
+
+      const {
+        addTodo,
+        toggleTodo,
+        deleteTodo,
+        deleteCompleted,
+        resetAllTodos,
+      } = todoSlice.actions;
+
+      // Redux store
+      const store = configureStore({
+        reducer: {
+          todos: todoSlice.reducer,
+        },
+      });
+
+      // React components
+      const TodoApp = () => {
+        const todos = useSelector((state) => state.todos);
+
+        return (
+          <div className='app'>
+            <h1>Todo App</h1>
+            <TodoInput />
+            {todos.length > 0 && <TodoActions />}
+            <TodoList />
+          </div>
+        );
+      };
+
+      const TodoInput = () => {
+        const [input, setInput] = React.useState('');
+        const dispatch = useDispatch();
+
+        const handleSubmit = (e) => {
+          e.preventDefault();
+          if (input.trim()) {
+            dispatch(addTodo(input.trim()));
+            setInput('');
+          }
+        };
+
+        return (
+          <form onSubmit={handleSubmit} className='input-container'>
+            <input
+              type='text'
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder='Add a new todo'
+            />
+            <button type='submit'>Add</button>
+          </form>
+        );
+      };
+
+      const TodoActions = () => {
+        const dispatch = useDispatch();
+
+        return (
+          <div className='todo-actions'>
+            <button onClick={() => dispatch(deleteCompleted())}>
+              Delete Completed
+            </button>
+            <button onClick={() => dispatch(resetAllTodos())}>
+              Reset All Todos
+            </button>
+          </div>
+        );
+      };
+
+      const TodoList = () => {
+        const todos = useSelector((state) => state.todos);
+
+        if (todos.length === 0) {
+          return <p className='empty-list'>No todos yet. Add some tasks!</p>;
+        }
+
+        return (
+          <ul className='todo-list'>
+            {todos.map((todo) => (
+              <TodoItem key={todo.id} todo={todo} />
+            ))}
+          </ul>
+        );
+      };
+
+      const TodoItem = ({ todo }) => {
+        const dispatch = useDispatch();
+
+        return (
+          <li className='todo-item'>
+            <span
+              style={{
+                textDecoration: todo.completed ? 'line-through' : 'none',
+              }}
+            >
+              {todo.text}
+            </span>
+            <div>
+              <button onClick={() => dispatch(toggleTodo(todo.id))}>
+                {todo.completed ? 'Undo' : 'Complete'}
+              </button>
+              <button onClick={() => dispatch(deleteTodo(todo.id))}>
+                Delete
+              </button>
+            </div>
+          </li>
+        );
+      };
+
+      // Render the app
+      ReactDOM.render(
+        <Provider store={store}>
+          <TodoApp />
+        </Provider>,
+        document.getElementById('root')
+      );
+    </script>
+  </body>
+</html>
