@@ -1,7 +1,8 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import { addTodo } from "../../redux/slices/todoSlice";
-import styles from "./TodoInput.module.css";
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { addTodo } from '../../redux/slices/todoSlice';
+import Button from '../UI/Button';
+import styles from './TodoInput.module.css';
 
 const TodoInput = () => {
   const [input, setInput] = React.useState('');
@@ -24,10 +25,11 @@ const TodoInput = () => {
         placeholder='Add a new todo'
         className={styles.input}
       />
-      <button type='submit' className={styles.button}>Add</button>
+      <Button type='submit' className={styles.button}>
+        Add
+      </Button>
     </form>
   );
 };
 
 export default TodoInput;
-
