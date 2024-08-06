@@ -1,0 +1,22 @@
+.TodoFormWrapper form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.TodoFormWrapper input {
+  width: 45%;
+  height: 1.5rem;
+  font-size: 1.3rem;
+}
+
+.TodoFormWrapper button:hover {
+  background-color: rgb(240, 240, 155);
+}
+
+.TodoFormWrapper input {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+}
