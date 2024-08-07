@@ -3,12 +3,7 @@ import Button from "../UI/Button";
 import styles from "./TodoForm.module.css";
 
 const TodoForm = ({ addTodo }) => {
-  const [text, setText] = useState("");
-  const onSubmitHandler = (event) => {
-    event.preventDefault();
-    addTodo(text);
-    setText("");
-  };
+
   return (
     <div className={styles.TodoFormWrapper}>
       <form onSubmit={onSubmitHandler}>
