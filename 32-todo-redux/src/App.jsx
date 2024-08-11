@@ -1,58 +1,49 @@
-import { useState } from "react";
-import { v4 as uuidv4 } from "uuid";
-import "./App.css";
+import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import TodoList from './components/Todos/TodoList';
+import TodoForm from './components/Todos/TodoForm';
+import './App.css';
 
 function App() {
   const [todos, setTodos] = useState([]);
-  const [text, setText] = useState("");
+  const [text, setText] = useState('');
 
   const addTodo = (e) => {
     e.preventDefault();
     if (text.trim()) {
-      setTodos([...todos, { id: uuidv4(), text: text.trim(), completed: false }]);
-      setText("");
+      setTodos([
+        ...todos,
+        { id: uuidv4(), text: text.trim(), completed: false },
+      ]);
+      setText('');
     }
   };
 
-  const deleteTodo = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
+  const deleteTodo = (todoId) => {
+    setTodos(todos.filter((todo) => todo.id !== todoId));
   };
 
-  const completeTodo = (id) => {
-    setTodos(todos.map((todo) => todo.id === id ? { ...todo, completed: true } : todo));
+  const completeTodo = (todoId) => {
+    setTodos(
+      todos.map((todo) =>
+        todo.id !== todoId ? todo : { ...todo, completed: !todo.completed }
+      )
+    );
   };
 
   return (
-    <div className="App">
+    <div className='App'>
       <h1>A simple Todo App</h1>
       {/* Todo Form */}
-      <form onSubmit={addTodo}>
-        <input
-          placeholder="Enter Todo"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-        />
-        <button type="submit" title="Add Todo" disabled={!text.trim()}>
-          Add Todo
-        </button>
-      </form>
-
+      <TodoForm text={text} handleTextChange={setText} handleSubmit={addTodo} />
       {/* Todo List */}
-      {todos.length === 0 ? (
-        <h2>No Todos</h2>
-      ) : (
-        todos.map((todo) => (
-          <li key={todo.id}>
-            <input type="checkbox" className="checkbox" checked={todo.completed} onChange={() => completeTodo(todo.id)} />
-            <span>{todo.text}</span>
-            <span className="delete" onClick={() => deleteTodo(todo.id)}>&times;</span>
-          </li>
-        ))
-      )}
+      <TodoList
+        todos={todos}
+        deleteTodo={deleteTodo}
+        completeTodo={completeTodo}
+      />
     </div>
   );
 }
-
-
 
 export default App;

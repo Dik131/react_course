@@ -1,14 +1,14 @@
-import Todo from "./Todo";
+import Todo from './Todo';
 
-const TodoList = ({ todos, deleteTodo, toggleTodo }) => {
+const TodoList = ({ todos, deleteTodo, completeTodo }) => {
   return (
     <div>
       {!todos.length && <h2>No Todos</h2>}
       {todos.map((todo, index) => (
         <Todo
-          todo={todo}
+          {...todo}
           key={todo.id}
-          toggleTodo={toggleTodo}
+          completeTodo={completeTodo}
           deleteTodo={deleteTodo}
         />
       ))}

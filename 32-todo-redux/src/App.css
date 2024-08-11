@@ -7,13 +7,13 @@ h1 {
   margin-top: 24px;
   margin-bottom: 40px;
 }
-li{
+li {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0.1rem 0.6rem;
   border-radius: 0.625rem;
-  background-color: #f0f0f0;  
+  background-color: #f0f0f0;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
   width: 90%;
@@ -24,7 +24,7 @@ li{
   color: #333;
 }
 li:hover {
-  background-color: #e0e0e0;  
+  background-color: #e0e0e0;
   transform: scale(1.02);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   cursor: pointer;
@@ -40,4 +40,8 @@ li:hover {
   cursor: pointer;
   width: 0.75rem;
   height: 0.75rem;
+}
+input:checked + span {
+  text-decoration: line-through;
+  color: #888;
 }
