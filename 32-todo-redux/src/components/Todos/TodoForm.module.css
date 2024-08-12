@@ -1,26 +1,25 @@
 .TodoFormWrapper form {
   display: flex;
-  align-items: center;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: flex-start;
   justify-content: space-between;
   margin-bottom: 30px;
+  width: 100%;
+  gap: 1rem;
+}
+@media screen and (max-width: 768px) {
+  .TodoFormWrapper {
+    flex-direction: column;
+  }
 }
 
 .TodoFormWrapper input {
-  width: 45%;
-  height: 2.5rem; /* Increased height */
-  font-size: 1.3rem;
-  padding: 0 15px; /* Adjusted padding */
+  align-self: auto;
+  width: 50%;
+  height: 2rem;
+  font-size: 1.1rem;
+  padding: 0 15px;
   border: none;
   border-radius: 5px;
-}
-
-.TodoFormWrapper button {
-  height: 2.5rem; /* Matched height with input */
-  padding: 0 15px; /* Added padding */
-  margin: 0 0 0 0.5rem;
-  font-size: 1.3rem; /* Matched font size with input */
-}
-
-.TodoFormWrapper button:hover {
-  background-color: rgb(240, 240, 155);
 }
