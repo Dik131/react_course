@@ -1,4 +1,4 @@
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import {
   persistStore,
   persistReducer,
@@ -8,13 +8,13 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
-} from "redux-persist";
-import storage from "redux-persist/lib/storage";
+} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 // import booksReducer from './books/reducer';
-import booksReducer from "./slices/booksSlice";
-import filterReducer from "./slices/filterSlice";
+import booksReducer from './slices/booksSlice';
+import filterReducer from './slices/filterSlice';
 // import filterSlice from './slices/filterSlice';
-import errorReducer from "./slices/errorSlice";
+import errorReducer from './slices/errorSlice';
 
 const rootReducer = combineReducers({
   books: booksReducer,
@@ -23,7 +23,7 @@ const rootReducer = combineReducers({
 });
 
 const persistConfig = {
-  key: "root",
+  key: 'root',
   storage,
 };
 

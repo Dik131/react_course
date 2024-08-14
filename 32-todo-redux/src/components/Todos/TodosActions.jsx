@@ -8,7 +8,7 @@ const TodosActions = () => {
   const dispatch = useDispatch();
   const todos = useSelector((state) => state.todos.todos);
 
-  if (todos.length === 0) {
+  if (!todos || todos.length === 0) {
     return null;
   }
 
