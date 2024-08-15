@@ -1,6 +1,6 @@
 {
-  "name": "99-template",
-  "version": "0.1.0",
+  "name": "todo-app-react-redux",
+  "version": "0.3.0",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.7",
