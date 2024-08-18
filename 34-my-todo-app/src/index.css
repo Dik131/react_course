@@ -1,0 +1,301 @@
+* {
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+body {
+  font-family: Arial, sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+h1 {
+  color: var(--title-color);
+  text-align: center;
+}
+h2 {
+  color: var(--subtitle-color);
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  background-color: var(--task-background-color);
+  margin: 5px 0;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+form {
+  display: flex;
+  margin-bottom: 20px;
+  align-items: center;
+}
+input[type='text'] {
+  flex-grow: 1;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--input-background-color);
+  color: var(--input-text-color);
+}
+.completed {
+  text-decoration: line-through;
+  color: var(--completed-text-color);
+}
+.search-bar {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+.search-bar input {
+  width: 50%;
+  max-width: 300px;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid var(--search-border-color);
+  background-color: var(--search-background-color);
+  color: var(--search-text-color);
+}
+.accordion {
+  background-color: var(--accordion-background-color);
+  color: var(--accordion-text-color);
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+}
+.active,
+.accordion:hover {
+  background-color: var(--accordion-hover-background-color);
+}
+.panel {
+  padding: 0 18px;
+  background-color: var(--panel-background-color);
+  display: none;
+  overflow: hidden;
+}
+.trashcan {
+  margin-top: 30px;
+  background-color: var(--trashcan-background-color);
+  border-radius: 5px;
+  padding: 15px;
+}
+.trashcan-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.trashcan-header {
+  font-size: 18px;
+  font-weight: bold;
+}
+.delete-all-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+.empty-trashcan {
+  text-align: center;
+  color: var(--empty-trashcan-text-color);
+}
+.trashcan-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.trashcan-column {
+  width: 48%;
+}
+.trashcan-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: var(--trashcan-item-background-color);
+  margin: 5px 0;
+  border-radius: 5px;
+}
+.restore-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+.columns {
+  display: flex;
+  justify-content: space-between;
+}
+.column {
+  width: 48%;
+}
+.accept-icon {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  fill: var(--accept-icon-color);
+}
+.accept-icon:hover {
+  fill: var(--accept-icon-hover-color);
+}
+.delete-icon {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  fill: var(--delete-icon-color);
+}
+.delete-icon:hover {
+  fill: var(--delete-icon-hover-color);
+}
+.task-actions {
+  display: flex;
+  align-items: center;
+}
+.task-actions svg {
+  margin-left: 10px;
+}
+.restore-icon {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  fill: var(--restore-icon-color);
+}
+.restore-icon:hover {
+  fill: var(--restore-icon-hover-color);
+}
+.trashcan-icon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  fill: var(--trashcan-icon-color);
+}
+.trashcan-icon:hover {
+  fill: var(--trashcan-icon-hover-color);
+}
+.add-task-icon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  fill: var(--add-task-icon-color);
+  margin-left: 10px;
+}
+.add-task-icon:hover {
+  fill: var(--add-task-icon-hover-color);
+}
+.mode-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: var(--mode-toggle-background-color);
+  color: var(--mode-toggle-text-color);
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.mode-toggle:hover {
+  background-color: var(--mode-toggle-hover-background-color);
+}
+
+/* Light mode */
+:root {
+  --background-color: #f0f0f0;
+  --text-color: #333;
+  --title-color: #333;
+  --subtitle-color: #444;
+  --task-background-color: #fff;
+  --completed-text-color: #888;
+  --input-background-color: #fff;
+  --input-text-color: #333;
+  --search-border-color: #ddd;
+  --search-background-color: #fff;
+  --search-text-color: #333;
+  --accordion-background-color: #eee;
+  --accordion-text-color: #444;
+  --accordion-hover-background-color: #ccc;
+  --panel-background-color: white;
+  --trashcan-background-color: #f8f8f8;
+  --empty-trashcan-text-color: #888;
+  --trashcan-item-background-color: #fff;
+  --accept-icon-color: #4caf50;
+  --accept-icon-hover-color: #45a049;
+  --delete-icon-color: #f44336;
+  --delete-icon-hover-color: #d32f2f;
+  --restore-icon-color: #2196f3;
+  --restore-icon-hover-color: #1976d2;
+  --trashcan-icon-color: #f44336;
+  --trashcan-icon-hover-color: #d32f2f;
+  --add-task-icon-color: #4caf50;
+  --add-task-icon-hover-color: #45a049;
+  --mode-toggle-background-color: #333;
+  --mode-toggle-text-color: #fff;
+  --mode-toggle-hover-background-color: #555;
+}
+
+/* Dark mode */
+.dark-mode {
+  --background-color: #333;
+  --text-color: #f0f0f0;
+  --title-color: #f0f0f0;
+  --subtitle-color: #ddd;
+  --task-background-color: #444;
+  --completed-text-color: #aaa;
+  --input-background-color: #555;
+  --input-text-color: #f0f0f0;
+  --search-border-color: #666;
+  --search-background-color: #444;
+  --search-text-color: #f0f0f0;
+  --accordion-background-color: #444;
+  --accordion-text-color: #f0f0f0;
+  --accordion-hover-background-color: #555;
+  --panel-background-color: #333;
+  --trashcan-background-color: #444;
+  --empty-trashcan-text-color: #aaa;
+  --trashcan-item-background-color: #555;
+  --accept-icon-color: #81c784;
+  --accept-icon-hover-color: #66bb6a;
+  --delete-icon-color: #e57373;
+  --delete-icon-hover-color: #f44336;
+  --restore-icon-color: #64b5f6;
+  --restore-icon-hover-color: #42a5f5;
+  --trashcan-icon-color: #e57373;
+  --trashcan-icon-hover-color: #f44336;
+  --add-task-icon-color: #81c784;
+  --add-task-icon-hover-color: #66bb6a;
+  --mode-toggle-background-color: #f0f0f0;
+  --mode-toggle-text-color: #333;
+  --mode-toggle-hover-background-color: #ddd;
+}
+
+@media (max-width: 768px) {
+  .trashcan-list,
+  .columns {
+    flex-direction: column;
+  }
+  .trashcan-column,
+  .column {
+    width: 100%;
+  }
+  .search-bar input {
+    width: 80%;
+  }
+}

@@ -1,0 +1,670 @@
+<html><head><base href="https://weeky-task-manager.example.com">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weeky: React-Redux Powered Visual Task Management</title>
+<script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.14.7/babel.min.js"></script>
+<script src="https://unpkg.com/@reduxjs/toolkit@1.6.0/dist/redux-toolkit.umd.min.js"></script>
+<script src="https://unpkg.com/react-redux@7.2.4/dist/react-redux.min.js"></script>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: var(--background-color);
+        color: var(--text-color);
+        transition: background-color 0.3s, color 0.3s;
+    }
+    h1 {
+        color: var(--title-color);
+        text-align: center;
+    }
+    h2 {
+        color: var(--subtitle-color);
+    }
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    li {
+        background-color: var(--task-background-color);
+        margin: 5px 0;
+        padding: 10px;
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    form {
+        display: flex;
+        margin-bottom: 20px;
+        align-items: center;
+    }
+    input[type="text"] {
+        flex-grow: 1;
+        padding: 10px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        background-color: var(--input-background-color);
+        color: var(--input-text-color);
+    }
+    .completed {
+        text-decoration: line-through;
+        color: var(--completed-text-color);
+    }
+    .search-bar {
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: center;
+    }
+    .search-bar input {
+        width: 50%;
+        max-width: 300px;
+        padding: 10px;
+        font-size: 14px;
+        border-radius: 5px;
+        border: 1px solid var(--search-border-color);
+        background-color: var(--search-background-color);
+        color: var(--search-text-color);
+    }
+    .accordion {
+        background-color: var(--accordion-background-color);
+        color: var(--accordion-text-color);
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        text-align: left;
+        border: none;
+        outline: none;
+        transition: 0.4s;
+    }
+    .active, .accordion:hover {
+        background-color: var(--accordion-hover-background-color);
+    }
+    .panel {
+        padding: 0 18px;
+        background-color: var(--panel-background-color);
+        display: none;
+        overflow: hidden;
+    }
+    .trashcan {
+        margin-top: 30px;
+        background-color: var(--trashcan-background-color);
+        border-radius: 5px;
+        padding: 15px;
+    }
+    .trashcan-controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    .trashcan-header {
+        font-size: 18px;
+        font-weight: bold;
+    }
+    .delete-all-button {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+    }
+    .empty-trashcan {
+        text-align: center;
+        color: var(--empty-trashcan-text-color);
+    }
+    .trashcan-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    .trashcan-column {
+        width: 48%;
+    }
+    .trashcan-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        background-color: var(--trashcan-item-background-color);
+        margin: 5px 0;
+        border-radius: 5px;
+    }
+    .restore-button {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+    }
+    .columns {
+        display: flex;
+        justify-content: space-between;
+    }
+    .column {
+        width: 48%;
+    }
+    .accept-icon {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+        fill: var(--accept-icon-color);
+    }
+    .accept-icon:hover {
+        fill: var(--accept-icon-hover-color);
+    }
+    .delete-icon {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+        fill: var(--delete-icon-color);
+    }
+    .delete-icon:hover {
+        fill: var(--delete-icon-hover-color);
+    }
+    .task-actions {
+        display: flex;
+        align-items: center;
+    }
+    .task-actions svg {
+        margin-left: 10px;
+    }
+    .restore-icon {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+        fill: var(--restore-icon-color);
+    }
+    .restore-icon:hover {
+        fill: var(--restore-icon-hover-color);
+    }
+    .trashcan-icon {
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+        fill: var(--trashcan-icon-color);
+    }
+    .trashcan-icon:hover {
+        fill: var(--trashcan-icon-hover-color);
+    }
+    .add-task-icon {
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+        fill: var(--add-task-icon-color);
+        margin-left: 10px;
+    }
+    .add-task-icon:hover {
+        fill: var(--add-task-icon-hover-color);
+    }
+    .mode-toggle {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: var(--mode-toggle-background-color);
+        color: var(--mode-toggle-text-color);
+        border: none;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    .mode-toggle:hover {
+        background-color: var(--mode-toggle-hover-background-color);
+    }
+
+    /* Light mode */
+    :root {
+        --background-color: #f0f0f0;
+        --text-color: #333;
+        --title-color: #333;
+        --subtitle-color: #444;
+        --task-background-color: #fff;
+        --completed-text-color: #888;
+        --input-background-color: #fff;
+        --input-text-color: #333;
+        --search-border-color: #ddd;
+        --search-background-color: #fff;
+        --search-text-color: #333;
+        --accordion-background-color: #eee;
+        --accordion-text-color: #444;
+        --accordion-hover-background-color: #ccc;
+        --panel-background-color: white;
+        --trashcan-background-color: #f8f8f8;
+        --empty-trashcan-text-color: #888;
+        --trashcan-item-background-color: #fff;
+        --accept-icon-color: #4CAF50;
+        --accept-icon-hover-color: #45a049;
+        --delete-icon-color: #f44336;
+        --delete-icon-hover-color: #d32f2f;
+        --restore-icon-color: #2196F3;
+        --restore-icon-hover-color: #1976D2;
+        --trashcan-icon-color: #f44336;
+        --trashcan-icon-hover-color: #d32f2f;
+        --add-task-icon-color: #4CAF50;
+        --add-task-icon-hover-color: #45a049;
+        --mode-toggle-background-color: #333;
+        --mode-toggle-text-color: #fff;
+        --mode-toggle-hover-background-color: #555;
+    }
+
+    /* Dark mode */
+    .dark-mode {
+        --background-color: #333;
+        --text-color: #f0f0f0;
+        --title-color: #f0f0f0;
+        --subtitle-color: #ddd;
+        --task-background-color: #444;
+        --completed-text-color: #aaa;
+        --input-background-color: #555;
+        --input-text-color: #f0f0f0;
+        --search-border-color: #666;
+        --search-background-color: #444;
+        --search-text-color: #f0f0f0;
+        --accordion-background-color: #444;
+        --accordion-text-color: #f0f0f0;
+        --accordion-hover-background-color: #555;
+        --panel-background-color: #333;
+        --trashcan-background-color: #444;
+        --empty-trashcan-text-color: #aaa;
+        --trashcan-item-background-color: #555;
+        --accept-icon-color: #81C784;
+        --accept-icon-hover-color: #66BB6A;
+        --delete-icon-color: #E57373;
+        --delete-icon-hover-color: #F44336;
+        --restore-icon-color: #64B5F6;
+        --restore-icon-hover-color: #42A5F5;
+        --trashcan-icon-color: #E57373;
+        --trashcan-icon-hover-color: #F44336;
+        --add-task-icon-color: #81C784;
+        --add-task-icon-hover-color: #66BB6A;
+        --mode-toggle-background-color: #f0f0f0;
+        --mode-toggle-text-color: #333;
+        --mode-toggle-hover-background-color: #ddd;
+    }
+
+    @media (max-width: 768px) {
+        .trashcan-list, .columns {
+            flex-direction: column;
+        }
+        .trashcan-column, .column {
+            width: 100%;
+        }
+        .search-bar input {
+            width: 80%;
+        }
+    }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+// Import necessary packages
+const { createSlice, configureStore } = RTK;
+const { Provider, useSelector, useDispatch } = ReactRedux;
+const { useState, useEffect } = React;
+
+// Create Redux slice for task management
+const tasksSlice = createSlice({
+    name: 'tasks',
+    initialState: {
+        everyday: [],
+        weekly: [],
+        todoList: [],
+        byDay: {
+            sunday: [], monday: [], tuesday: [], wednesday: [], thursday: [], friday: [], saturday: []
+        },
+        searchTerm: '',
+        trashcan: [],
+        isDarkMode: false
+    },
+    reducers: {
+        // Define task management actions
+        addTask: (state, action) => {
+            const { type, text } = action.payload;
+            state[type].push({ text, completed: false });
+        },
+        toggleTask: (state, action) => {
+            const { type, index } = action.payload;
+            state[type][index].completed = !state[type][index].completed;
+        },
+        deleteTask: (state, action) => {
+            const { type, index } = action.payload;
+            const deletedTask = state[type].splice(index, 1)[0];
+            state.trashcan.push({ ...deletedTask, type, index });
+        },
+        addDayTask: (state, action) => {
+            const { day, text } = action.payload;
+            state.byDay[day].push({ text, completed: false });
+        },
+        toggleDayTask: (state, action) => {
+            const { day, index } = action.payload;
+            state.byDay[day][index].completed = !state.byDay[day][index].completed;
+        },
+        deleteDayTask: (state, action) => {
+            const { day, index } = action.payload;
+            const deletedTask = state.byDay[day].splice(index, 1)[0];
+            state.trashcan.push({ ...deletedTask, type: 'byDay', day, index });
+        },
+        setSearchTerm: (state, action) => {
+            state.searchTerm = action.payload;
+        },
+        loadTasks: (state, action) => {
+            return { ...state, ...action.payload };
+        },
+        restoreTask: (state, action) => {
+            const { index } = action.payload;
+            const restoredTask = state.trashcan.splice(index, 1)[0];
+            if (restoredTask.type === 'byDay') {
+                state.byDay[restoredTask.day].splice(restoredTask.index, 0, restoredTask);
+            } else {
+                state[restoredTask.type].splice(restoredTask.index, 0, restoredTask);
+            }
+        },
+        clearTrashcan: (state) => {
+            state.trashcan = [];
+        },
+        uncheckEverydayTasks: (state) => {
+            state.everyday.forEach(task => task.completed = false);
+        },
+        uncheckWeeklyTasksAndWeekAccordion: (state) => {
+            state.weekly.forEach(task => task.completed = false);
+            Object.keys(state.byDay).forEach(day => 
+                state.byDay[day].forEach(task => task.completed = false)
+            );
+        },
+        toggleDarkMode: (state) => {
+            state.isDarkMode = !state.isDarkMode;
+        }
+    }
+});
+
+// Destructure actions from tasks slice
+const { addTask, toggleTask, deleteTask, addDayTask, toggleDayTask, deleteDayTask, setSearchTerm, loadTasks, restoreTask, clearTrashcan, uncheckEverydayTasks, uncheckWeeklyTasksAndWeekAccordion, toggleDarkMode } = tasksSlice.actions;
+
+// Configure the Redux store
+const store = configureStore({
+    reducer: tasksSlice.reducer
+});
+
+// TaskItem component to render individual tasks
+const TaskItem = ({ task, onToggle, onDelete }) => (
+    <li>
+        <span className={task.completed ? 'completed' : ''}>{task.text}</span>
+        <div className="task-actions">
+            <svg className="accept-icon" viewBox="0 0 24 24" onClick={onToggle}>
+                <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
+            </svg>
+            <svg className="delete-icon" viewBox="0 0 24 24" onClick={onDelete}>
+                <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+            </svg>
+        </div>
+    </li>
+);
+
+// TaskList component to render a list of tasks
+const TaskList = ({ tasks, onToggle, onDelete, onAdd, type }) => {
+    const [text, setText] = useState('');
+
+    const handleSubmit = e => {
+        e.preventDefault();
+        if (text.trim()) {
+            onAdd(type, text.trim());
+            setText('');
+        }
+    };
+
+    return (
+        <div>
+            <ul>
+                {tasks.map((task, index) => (
+                    <TaskItem
+                        key={index}
+                        task={task}
+                        onToggle={() => onToggle(type, index)}
+                        onDelete={() => onDelete(type, index)}
+                    />
+                ))}
+            </ul>
+            <form onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    placeholder="Add task..."
+                    value={text}
+                    onChange={e => setText(e.target.value)}
+                />
+                <svg className="add-task-icon" viewBox="0 0 24 24" onClick={handleSubmit}>
+                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                </svg>
+            </form>
+        </div>
+    );
+};
+
+// DayAccordion component to render accordion for a day
+const DayAccordion = ({ day, tasks, onToggle, onDelete, onAdd }) => {
+    const [isOpen, setIsOpen] = useState(false);
+
+    return (
+        <div>
+            <div className="accordion" onClick={() => setIsOpen(!isOpen)}>
+                <h3>{day}</h3>
+            </div>
+            <div className="panel" style={{ display: isOpen ? 'block' : 'none' }}>
+                <TaskList
+                    tasks={tasks}
+                    type={day}
+                    onToggle={onToggle}
+                    onDelete={onDelete}
+                    onAdd={onAdd}
+                />
+            </div>
+        </div>
+    );
+};
+
+// Trashcan component to render deleted tasks
+const Trashcan = ({ tasks, onRestore, onClear }) => {
+    const [isOpen, setIsOpen] = useState(false);
+
+    const firstHalf = tasks.slice(0, Math.ceil(tasks.length / 2));
+    const secondHalf = tasks.slice(Math.ceil(tasks.length / 2));
+
+    return (
+        <div className="trashcan">
+            <div className="trashcan-controls">
+                <span className="trashcan-header">Trashcan</span>
+                {tasks.length > 0 && (
+                    <button className="delete-all-button" onClick={onClear}>
+                        <svg className="trashcan-icon" viewBox="0 0 24 24">
+                            <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                        </svg>
+                    </button>
+                )}
+            </div>
+            {tasks.length === 0 ? (
+                <p className="empty-trashcan">{isOpen ? 'Trashcan is empty' : ''}</p>
+            ) : (
+                <>
+                    <div className="trashcan-list" style={{ display: isOpen ? 'flex' : 'none' }}>
+                        <div className="trashcan-column">
+                            {firstHalf.map((task, index) => (
+                                <div key={index} className="trashcan-item">
+                                    <span>{task.text}</span>
+                                    <button className="restore-button" onClick={() => onRestore(index)}>
+                                        <svg className="restore-icon" viewBox="0 0 24 24">
+                                            <path d="M12 5V2L8 6l4 4V7c3.31 0 6 2.69 6 6 0 2.97-2.17 5.43-5 5.91v2.02c3.95-.49 7-3.85 7-7.93 0-4.42-3.58-8-8-8zm-6 8c0-3.31 2.69-6 6-6v1c-2.76 0-5 2.24-5 5s2.24 5 5 5v1c-3.31 0-6-2.69-6-6z"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
+                        <div className="trashcan-column">
+                            {secondHalf.map((task, index) => (
+                                <div key={index} className="trashcan-item">
+                                    <span>{task.text}</span>
+                                    <button className="restore-button" onClick={() => onRestore(Math.ceil(tasks.length / 2) + index)}>
+                                        <svg className="restore-icon" viewBox="0 0 24 24">
+                                            <path d="M12 5V2L8 6l4 4V7c3.31 0 6 2.69 6 6 0 2.97-2.17 5.43-5 5.91v2.02c3.95-.49 7-3.85 7-7.93 0-4.42-3.58-8-8-8zm-6 8c0-3.31 2.69-6 6-6v1c-2.76 0-5 2.24-5 5s2.24 5 5 5v1c-3.31 0-6-2.69-6-6z"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </>
+            )}
+        </div>
+    );
+};
+
+// App component
+const App = () => {
+    const tasks = useSelector(state => state);
+    const dispatch = useDispatch();
+
+    // Load tasks from local storage on component mount
+    useEffect(() => {
+        const storedTasks = JSON.parse(localStorage.getItem('tasks'));
+        if (storedTasks) {
+            dispatch(loadTasks(storedTasks));
+        }
+    }, []);
+
+    // Save tasks to local storage whenever they change
+    useEffect(() => {
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+    }, [tasks]);
+
+    // Toggle day/night mode
+    useEffect(() => {
+        if (tasks.isDarkMode) {
+            document.body.classList.add('dark-mode');
+        } else {
+            document.body.classList.remove('dark-mode');
+        }
+    }, [tasks.isDarkMode]);
+
+    // Uncheck everyday tasks at midnight
+    useEffect(() => {
+        const now = new Date();
+        const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
+        const timeToMidnight = midnight - now;
+        const timer = setTimeout(() => {
+            dispatch(uncheckEverydayTasks());
+        }, timeToMidnight);
+        return () => clearTimeout(timer);
+    }, [tasks.everyday]);
+    
+    // Uncheck weekly tasks and week accordion every Saturday at midnight 
+    useEffect(() => {
+        const now = new Date();
+        const saturday = 6;
+        const daysUntilSaturday = (saturday - now.getDay() + 7) % 7;
+        const midnightSaturday = new Date(now.getFullYear(), now.getMonth(), now.getDate() + daysUntilSaturday, 0, 0, 0);
+        const timeToMidnightSaturday = midnightSaturday - now;
+        const timer = setTimeout(() => {
+            dispatch(uncheckWeeklyTasksAndWeekAccordion());
+        }, timeToMidnightSaturday);
+        return () => clearTimeout(timer);
+    }, [tasks.weekly, tasks.byDay]);
+
+    // Filter tasks based on search term
+    const filteredTasks = {};
+    for (let type in tasks) {
+        if (Array.isArray(tasks[type])) {
+            filteredTasks[type] = tasks[type].filter(task =>
+                task.text.toLowerCase().includes(tasks.searchTerm.toLowerCase())
+            );
+        } else if (type === 'byDay') {
+            filteredTasks[type] = {};
+            for (let day in tasks.byDay) {
+                filteredTasks.byDay[day] = tasks.byDay[day].filter(task =>
+                    task.text.toLowerCase().includes(tasks.searchTerm.toLowerCase())  
+                );
+            }
+        }
+    }
+
+    return (
+        <div>
+            <h1>Weeky</h1>
+            <div className="search-bar">
+                <input
+                    type="text"
+                    placeholder="Search tasks..."
+                    value={tasks.searchTerm}
+                    onChange={e => dispatch(setSearchTerm(e.target.value))}
+                />
+            </div>
+            <div className="columns">
+                <div className="column">
+                    <h2>Everyday Tasks</h2>
+                    <TaskList
+                        tasks={filteredTasks.everyday}
+                        type="everyday"
+                        onToggle={(type, index) => dispatch(toggleTask({ type, index }))}
+                        onDelete={(type, index) => dispatch(deleteTask({ type, index }))}
+                        onAdd={(type, text) => dispatch(addTask({ type, text }))}
+                    />
+                    
+                    <h2>Week</h2>
+                    {Object.entries(filteredTasks.byDay).map(([day, tasks]) => (
+                        <DayAccordion
+                            key={day}
+                            day={day}
+                            tasks={tasks}
+                            onToggle={(day, index) => dispatch(toggleDayTask({ day, index }))} 
+                            onDelete={(day, index) => dispatch(deleteDayTask({ day, index }))}
+                            onAdd={(day, text) => dispatch(addDayTask({ day, text }))}
+                        />
+                    ))}
+                </div>
+                <div className="column">
+                    <h2>Weekly Tasks</h2>
+                    <TaskList
+                        tasks={filteredTasks.weekly}
+                        type="weekly"
+                        onToggle={(type, index) => dispatch(toggleTask({ type, index }))}
+                        onDelete={(type, index) => dispatch(deleteTask({ type, index }))}
+                        onAdd={(type, text) => dispatch(addTask({ type, text }))}
+                    />
+                    <h2>Todo List</h2>
+                    <TaskList 
+                        tasks={filteredTasks.todoList}
+                        type="todoList"
+                        onToggle={(type, index) => dispatch(toggleTask({ type, index }))}
+                        onDelete={(type, index) => dispatch(deleteTask({ type, index }))}
+                        onAdd={(type, text) => dispatch(addTask({ type, text }))}
+                    />
+                </div>
+            </div>
+            <Trashcan
+                tasks={tasks.trashcan}
+                onRestore={index => dispatch(restoreTask({ index }))}
+                onClear={() => dispatch(clearTrashcan())}
+            />
+            <button className="mode-toggle" onClick={() => dispatch(toggleDarkMode())}>
+                {tasks.isDarkMode ? '🌞' : '🌙'}
+            </button>
+        </div>
+    );
+};
+
+ReactDOM.render(
+    <Provider store={store}>
+        <App />
+    </Provider>,
+    document.getElementById('root')
+);
+</script>
+</body>
+</html>
