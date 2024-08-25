@@ -1,35 +1,138 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  loadTasks,
+  addTask,
+  toggleTask,
+  deleteTask,
+  uncheckEverydayTasks,
+  uncheckWeeklyTasksAndWeekAccordion,
+} from './redux/slices/tasksSlice';
+import { get } from 'idb-keyval';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const dispatch = useDispatch();
+  const { everyday, weekly, todoList, byDay, searchTerm, theme } = useSelector(
+    (state) => state
+  );
+
+  useEffect(() => {
+    const loadTasksFromIndexedDB = async () => {
+      try {
+        const storedTasks = await get('tasks');
+        if (storedTasks) {
+          dispatch(loadTasks(storedTasks));
+        }
+      } catch (error) {
+        console.error('Error loading tasks from IndexedDB:', error);
+      }
+    };
+
+    loadTasksFromIndexedDB();
+  }, [dispatch]);
+
+  useEffect(() => {
+    const midnightCheck = () => {
+      const now = new Date();
+      if (now.getHours() === 0 && now.getMinutes() === 0) {
+        dispatch(uncheckEverydayTasks());
+        if (now.getDay() === 0) {
+          dispatch(uncheckWeeklyTasksAndWeekAccordion());
+        }
+      }
+    };
+
+    midnightCheck();
+    const intervalId = setInterval(midnightCheck, 60000);
+    return () => clearInterval(intervalId);
+  }, [dispatch]);
+
+  const weekDays = [
+    'sunday',
+    'monday',
+    'tuesday',
+    'wednesday',
+    'thursday',
+    'friday',
+    'saturday',
+  ];
+  const currentDay = new Date()
+    .toLocaleDateString('en-US', { weekday: 'long' })
+    .toLowerCase();
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div>
+      <h1>Weeky: React-Redux Powered Visual Task Management with IndexedDB</h1>
+      <ThemeSwitch />
+      <PercentageCounter
+        everyday={everyday}
+        currentDayTasks={byDay[currentDay]}
+      />
+      <div className='search-bar'>
+        <input
+          type='text'
+          placeholder='Search tasks...'
+          value={searchTerm}
+          onChange={(e) => dispatch(setSearchTerm(e.target.value))}
+        />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+      <div className='columns'>
+        <div className='column'>
+          <TaskBlock
+            title='Everyday Tasks'
+            tasks={everyday}
+            onAdd={(text) => dispatch(addTask({ type: 'everyday', text }))}
+            onToggle={(index) =>
+              dispatch(toggleTask({ type: 'everyday', index }))
+            }
+            onDelete={(index) =>
+              dispatch(deleteTask({ type: 'everyday', index }))
+            }
+            searchTerm={searchTerm}
+          />
+          {weekDays.map((day) => (
+            <DayAccordion
+              key={day}
+              day={day}
+              tasks={byDay[day]}
+              onAdd={(day, text) => dispatch(addDayTask({ day, text }))}
+              onToggle={(day, index) => dispatch(toggleDayTask({ day, index }))}
+              onDelete={(day, index) => dispatch(deleteDayTask({ day, index }))}
+              searchTerm={searchTerm}
+            />
+          ))}
+        </div>
+        <div className='column'>
+          <TaskBlock
+            title='Weekly Tasks'
+            tasks={weekly}
+            onAdd={(text) => dispatch(addTask({ type: 'weekly', text }))}
+            onToggle={(index) =>
+              dispatch(toggleTask({ type: 'weekly', index }))
+            }
+            onDelete={(index) =>
+              dispatch(deleteTask({ type: 'weekly', index }))
+            }
+            searchTerm={searchTerm}
+          />
+          <TaskBlock
+            title='Todo List'
+            tasks={todoList}
+            onAdd={(text) => dispatch(addTask({ type: 'todoList', text }))}
+            onToggle={(index) =>
+              dispatch(toggleTask({ type: 'todoList', index }))
+            }
+            onDelete={(index) =>
+              dispatch(deleteTask({ type: 'todoList', index }))
+            }
+            searchTerm={searchTerm}
+          />
+        </div>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+      <Trashcan />
+    </div>
+  );
 }
 
-export default App
+export default App;
