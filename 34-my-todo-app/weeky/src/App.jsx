@@ -8,7 +8,6 @@ import {
   uncheckEverydayTasks,
   uncheckWeeklyTasksAndWeekAccordion,
 } from './redux/slices/tasksSlice';
-import { get } from 'idb-keyval';
 import './App.css';
 
 function App() {
