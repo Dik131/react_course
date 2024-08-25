@@ -391,6 +391,8 @@
         set('tasks', state);
       });
 
+      // COMPONENT: TaskItem
+      // Create a separate file for this component
       const TaskItem = ({ task, onToggle, onDelete }) => (
         <li>
           <span className={task.completed ? 'completed' : ''}>{task.text}</span>
@@ -405,6 +407,8 @@
         </li>
       );
 
+      // COMPONENT: TaskBlock
+      // Create a separate file for this component
       const TaskBlock = ({
         title,
         tasks,
@@ -466,6 +470,8 @@
         );
       };
 
+      // COMPONENT: DayAccordion
+      // Create a separate file for this component
       const DayAccordion = ({
         day,
         tasks,
@@ -512,6 +518,8 @@
         );
       };
 
+      // COMPONENT: PercentageCounter
+      // Create a separate file for this component
       const PercentageCounter = ({ everyday, currentDayTasks }) => {
         const completedEveryday = everyday.filter(
           (task) => task.completed
@@ -550,6 +558,8 @@
         );
       };
 
+      // COMPONENT: Trashcan
+      // Create a separate file for this component
       const Trashcan = () => {
         const dispatch = useDispatch();
         const trashedTasks = useSelector((state) => state.trashcan);
@@ -618,6 +628,8 @@
         );
       };
 
+      // COMPONENT: ThemeSwitch
+      // Create a separate file for this component
       const ThemeSwitch = () => {
         const dispatch = useDispatch();
         const theme = useSelector((state) => state.theme);
@@ -639,6 +651,8 @@
         );
       };
 
+      // COMPONENT: App
+      // Create a separate file for this component
       const App = () => {
         const dispatch = useDispatch();
         const { everyday, weekly, todoList, byDay, searchTerm, theme } =
