@@ -1,33 +1,83 @@
 <html><head><base href="https://weeky-task-manager.example.com">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Weeky: React-Redux Powered Visual Task Management</title>
+<title>Weeky: React-Redux Powered Visual Task Management with IndexedDB</title>
 <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
 <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
 <script src="https://unpkg.com/@babel/standalone@7.14.7/babel.min.js"></script>
 <script src="https://unpkg.com/@reduxjs/toolkit@1.6.0/dist/redux-toolkit.umd.min.js"></script>
 <script src="https://unpkg.com/react-redux@7.2.4/dist/react-redux.min.js"></script>
+<script src="https://unpkg.com/idb-keyval@6.2.0/dist/umd.js"></script>
 <style>
     body {
         font-family: Arial, sans-serif;
         max-width: 1200px;
         margin: 0 auto;
         padding: 20px;
+        transition: background-color 0.5s, color 0.5s;
+    }
+    body.light {
         background-color: #f0f0f0;
+        color: #333;
+    }
+    body.dark {
+        background-color: #333;
+        color: #f0f0f0;
     }
     h1 {
-        color: #333;
         text-align: center;
     }
     h2 {
-        color: #444;
+        color: inherit;
+    }
+    .theme-switch {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        display: flex;
+        align-items: center;
+    }
+    .theme-switch input {
+        display: none;
+    }
+    .theme-switch label {
+        margin: 0;
+        cursor: pointer;
+        height: 24px;
+        position: relative;
+        width: 50px;
+        background-color: #ccc;
+        border-radius: 12px;
+        transition: background-color 0.3s;
+    }
+    .theme-switch label::before {
+        content: '';
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 20px;
+        height: 20px;
+        background-color: white;
+        border-radius: 50%;
+        transition: transform 0.3s;
+    }
+    input:checked + label {
+        background-color: #66bb6a;
+    }
+    input:checked + label::before {
+        transform: translateX(26px);
+    }
+    .percentage-counter {
+        text-align: center;
+        font-size: 18px;
+        margin-bottom: 20px;
     }
     ul {
         list-style-type: none;
         padding: 0;
     }
     li {
-        background-color: #fff;
+        background-color: inherit;
         margin: 5px 0;
         padding: 10px;
         border-radius: 5px;
@@ -44,9 +94,10 @@
         flex-grow: 1;
         padding: 10px;
         font-size: 16px;
-        border: none;
+        border: 1px solid #ccc;
         border-radius: 5px;
-        background-color: #fff;
+        background-color: inherit;
+        color: inherit;
     }
     .completed {
         text-decoration: line-through;
@@ -64,10 +115,12 @@
         font-size: 14px;
         border-radius: 5px;
         border: 1px solid #ddd;
+        background-color: inherit;
+        color: inherit;
     }
     .accordion {
         background-color: #eee;
-        color: #444;
+        color: inherit;
         cursor: pointer;
         padding: 18px;
         width: 100%;
@@ -81,7 +134,7 @@
     }
     .panel {
         padding: 0 18px;
-        background-color: white;
+        background-color: inherit;
         display: none;
         overflow: hidden;
     }
@@ -124,7 +177,7 @@
         justify-content: space-between;
         align-items: center;
         padding: 10px;
-        background-color: #fff;
+        background-color: inherit;
         margin: 5px 0;
         border-radius: 5px;
     }
@@ -207,16 +260,16 @@
     }
 </style>
 </head>
-<body>
+<body class="light">
 <div id="root"></div>
 
 <script type="text/babel">
-// Import necessary packages
 const { createSlice, configureStore } = RTK;
 const { Provider, useSelector, useDispatch } = ReactRedux;
 const { useState, useEffect } = React;
+const { get, set } = idbKeyval;
 
-// Create Redux slice for task management
+// Redux Toolkit slice
 const tasksSlice = createSlice({
     name: 'tasks',
     initialState: {
@@ -227,10 +280,10 @@ const tasksSlice = createSlice({
             sunday: [], monday: [], tuesday: [], wednesday: [], thursday: [], friday: [], saturday: []
         },
         searchTerm: '',
-        trashcan: []
+        trashcan: [],
+        theme: 'light'
     },
     reducers: {
-        // Define task management actions
         addTask: (state, action) => {
             const { type, text } = action.payload;
             state[type].push({ text, completed: false });
@@ -283,19 +336,25 @@ const tasksSlice = createSlice({
             Object.keys(state.byDay).forEach(day => 
                 state.byDay[day].forEach(task => task.completed = false)
             );
+        },
+        toggleTheme: (state) => {
+            state.theme = state.theme === 'light' ? 'dark' : 'light';
         }
     }
 });
 
-// Destructure actions from tasks slice
-const { addTask, toggleTask, deleteTask, addDayTask, toggleDayTask, deleteDayTask, setSearchTerm, loadTasks, restoreTask, clearTrashcan, uncheckEverydayTasks, uncheckWeeklyTasksAndWeekAccordion } = tasksSlice.actions;
+const { addTask, toggleTask, deleteTask, addDayTask, toggleDayTask, deleteDayTask, setSearchTerm, loadTasks, restoreTask, clearTrashcan, uncheckEverydayTasks, uncheckWeeklyTasksAndWeekAccordion, toggleTheme } = tasksSlice.actions;
 
-// Configure the Redux store
 const store = configureStore({
     reducer: tasksSlice.reducer
 });
 
-// TaskItem component to render individual tasks
+// Middleware to save state to IndexedDB after each action
+store.subscribe(() => {
+    const state = store.getState();
+    set('tasks', state);
+});
+
 const TaskItem = ({ task, onToggle, onDelete }) => (
     <li>
         <span className={task.completed ? 'completed' : ''}>{task.text}</span>
@@ -310,16 +369,13 @@ const TaskItem = ({ task, onToggle, onDelete }) => (
     </li>
 );
 
-// TaskBlock component to render a block of tasks with a header
 const TaskBlock = ({ title, tasks, onAdd, onToggle, onDelete, searchTerm }) => {
     const [newTask, setNewTask] = useState('');
 
-    // Filter tasks based on the search term
     const filteredTasks = tasks.filter(task =>
         task.text.toLowerCase().includes(searchTerm ? searchTerm.toLowerCase() : '')
     );
 
-    // Handle adding a new task
     const handleSubmit = (e) => {
         e.preventDefault();
         if (newTask.trim()) {
@@ -358,11 +414,9 @@ const TaskBlock = ({ title, tasks, onAdd, onToggle, onDelete, searchTerm }) => {
     );
 };
 
-// DayAccordion component to render tasks for a specific day with an accordion style
 const DayAccordion = ({ day, tasks, onAdd, onToggle, onDelete, searchTerm }) => {
     const [isOpen, setIsOpen] = useState(day === new Date().toLocaleDateString('en-US', { weekday: 'long' }).toLowerCase());
 
-    // Filter tasks based on the search term
     const filteredTasks = tasks.filter(task =>
         task.text.toLowerCase().includes(searchTerm ? searchTerm.toLowerCase() : '')
     );
@@ -386,19 +440,43 @@ const DayAccordion = ({ day, tasks, onAdd, onToggle, onDelete, searchTerm }) => 
     );
 };
 
-// Trashcan component to manage and display deleted tasks
+const PercentageCounter = ({ everyday, currentDayTasks }) => {
+    const completedEveryday = everyday.filter(task => task.completed).length;
+    const completedCurrentDay = currentDayTasks.filter(task => task.completed).length;
+    const totalEveryday = everyday.length;
+    const totalCurrentDay = currentDayTasks.length;
+
+    const calculatePercentage = (completed, total) => {
+        return total > 0 ? ((completed / total) * 100).toFixed(2) : '0.00';
+    };
+
+    const percentageEveryday = calculatePercentage(completedEveryday, totalEveryday);
+    const percentageCurrentDay = calculatePercentage(completedCurrentDay, totalCurrentDay);
+
+    return (
+        <div className="percentage-counter">
+            {percentageEveryday >= 50 && (
+                <div>Everyday Tasks Completion: {percentageEveryday}%</div>
+            )}
+            {percentageCurrentDay >= 50 && (
+                <div>
+                    {new Date().toLocaleDateString('en-US', { weekday: 'long' })} Tasks Completion: {percentageCurrentDay}%
+                </div>
+            )}
+        </div>
+    );
+};
+
 const Trashcan = () => {
     const dispatch = useDispatch();
     const trashedTasks = useSelector(state => state.trashcan);
 
-    // Handle clearing of the entire trashcan
     const handleClearTrashcan = () => {
         if (window.confirm("Are you sure you want to permanently delete all tasks in the trashcan?")) {
             dispatch(clearTrashcan());
         }
     };
 
-    // Component to display a column of trashed tasks
     const TaskColumn = ({ tasks }) => (
         <div className="trashcan-column">
             {tasks.map((task, index) => (
@@ -419,7 +497,7 @@ const Trashcan = () => {
     );
 
     if (trashedTasks.length === 0) {
-        return null; // Hide the trashcan if it's empty
+        return null;
     }
 
     return (
@@ -440,25 +518,46 @@ const Trashcan = () => {
     );
 };
 
-// Main App component
+const ThemeSwitch = () => {
+    const dispatch = useDispatch();
+    const theme = useSelector(state => state.theme);
+
+    useEffect(() => {
+        document.body.className = theme;
+    }, [theme]);
+
+    return (
+        <div className="theme-switch">
+            <input 
+                type="checkbox" 
+                id="theme-switch" 
+                checked={theme === 'dark'}
+                onChange={() => dispatch(toggleTheme())}
+            />
+            <label htmlFor="theme-switch"></label>
+        </div>
+    );
+};
+
 const App = () => {
     const dispatch = useDispatch();
-    const { everyday, weekly, todoList, byDay, searchTerm } = useSelector((state) => state);
+    const { everyday, weekly, todoList, byDay, searchTerm, theme } = useSelector((state) => state);
 
-    // Load tasks from local storage on initial render
     useEffect(() => {
-        const storedTasks = localStorage.getItem('tasks');
-        if (storedTasks) {
-            dispatch(loadTasks(JSON.parse(storedTasks)));
-        }
+        const loadTasksFromIndexedDB = async () => {
+            try {
+                const storedTasks = await get('tasks');
+                if (storedTasks) {
+                    dispatch(loadTasks(storedTasks));
+                }
+            } catch (error) {
+                console.error('Error loading tasks from IndexedDB:', error);
+            }
+        };
+
+        loadTasksFromIndexedDB();
     }, [dispatch]);
 
-    // Save tasks to local storage whenever task state changes
-    useEffect(() => {
-        localStorage.setItem('tasks', JSON.stringify({ everyday, weekly, todoList, byDay, searchTerm }));
-    }, [everyday, weekly, todoList, byDay, searchTerm]);
-
-    // Uncheck completed tasks at midnight
     useEffect(() => {
         const midnightCheck = () => {
             const now = new Date();
@@ -476,13 +575,13 @@ const App = () => {
     }, [dispatch]);
 
     const weekDays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+    const currentDay = new Date().toLocaleDateString('en-US', { weekday: 'long' }).toLowerCase();
 
     return (
         <div>
-            {/* Header */}
-            <h1>Weeky: React-Redux Powered Visual Task Management</h1>
-
-            {/* Search Component */}
+            <h1>Weeky: React-Redux Powered Visual Task Management with IndexedDB</h1>
+            <ThemeSwitch />
+            <PercentageCounter everyday={everyday} currentDayTasks={byDay[currentDay]} />
             <div className="search-bar">
                 <input
                     type="text"
@@ -491,10 +590,7 @@ const App = () => {
                     onChange={(e) => dispatch(setSearchTerm(e.target.value))}
                 />
             </div>
-
-            {/* Main Content Section */}
             <div className="columns">
-                {/* Left Column: Everyday and Day Accordion Tasks */}
                 <div className="column">
                     <TaskBlock
                         title="Everyday Tasks"
@@ -504,7 +600,6 @@ const App = () => {
                         onDelete={(index) => dispatch(deleteTask({ type: 'everyday', index }))}
                         searchTerm={searchTerm}
                     />
-                    {/* Map over days to create an accordion for each */}
                     {weekDays.map(day => (
                         <DayAccordion
                             key={day}
@@ -517,8 +612,6 @@ const App = () => {
                         />
                     ))}
                 </div>
-                
-                {/* Right Column: Weekly and Todo List Tasks */}
                 <div className="column">
                     <TaskBlock
                         title="Weekly Tasks"
@@ -538,14 +631,11 @@ const App = () => {
                     />
                 </div>
             </div>
-
-            {/* Trashcan Component */}
             <Trashcan />
         </div>
     );
 };
 
-// Render the App component, wrapped with the Redux Provider
 ReactDOM.render(
     <Provider store={store}>
         <App />
