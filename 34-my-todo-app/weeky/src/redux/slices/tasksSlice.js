@@ -109,7 +109,6 @@ export const {
 
 export default tasksSlice.reducer;
 
-// Load initial state from IndexedDB
 loadInitialState().then((initialState) => {
   tasksSlice.reducer(undefined, { type: 'INIT', payload: initialState });
 });

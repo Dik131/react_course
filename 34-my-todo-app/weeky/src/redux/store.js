@@ -6,7 +6,7 @@ const indexedDBMiddleware = createIndexedDBMiddleware('myAppDB', 'tasks');
 
 const store = configureStore({
   reducer: {
-    tasks: tasksSlice.reducer,
+    tasks: tasksSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(indexedDBMiddleware),
