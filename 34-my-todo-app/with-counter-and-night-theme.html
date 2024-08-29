@@ -13,6 +13,7 @@
     <script src="https://unpkg.com/react-redux@7.2.4/dist/react-redux.min.js"></script>
     <script src="https://unpkg.com/idb-keyval@6.2.0/dist/umd.js"></script>
     <style>
+      /* Global styles */
       body {
         font-family: Arial, sans-serif;
         max-width: 1200px;
@@ -34,6 +35,9 @@
       h2 {
         color: inherit;
       }
+
+      /* ThemeSwitch component styles */
+      /* Move these styles to a separate CSS file for ThemeSwitch */
       .theme-switch {
         position: absolute;
         top: 20px;
@@ -71,11 +75,49 @@
       input:checked + label::before {
         transform: translateX(26px);
       }
+
+      /* PercentageCounter component styles */
+      /* Move these styles to a separate CSS file for PercentageCounter */
       .percentage-counter {
         text-align: center;
         font-size: 18px;
         margin-bottom: 20px;
       }
+
+      /* TaskItem component styles */
+      /* Move these styles to a separate CSS file for TaskItem */
+      .completed {
+        text-decoration: line-through;
+        color: #888;
+      }
+      .task-actions {
+        display: flex;
+        align-items: center;
+      }
+      .task-actions svg {
+        margin-left: 10px;
+      }
+      .accept-icon {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+        fill: #4caf50;
+      }
+      .accept-icon:hover {
+        fill: #45a049;
+      }
+      .delete-icon {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+        fill: #f44336;
+      }
+      .delete-icon:hover {
+        fill: #d32f2f;
+      }
+
+      /* TaskBlock component styles */
+      /* Move these styles to a separate CSS file for TaskBlock */
       ul {
         list-style-type: none;
         padding: 0;
@@ -103,25 +145,19 @@
         background-color: inherit;
         color: inherit;
       }
-      .completed {
-        text-decoration: line-through;
-        color: #888;
+      .add-task-icon {
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+        fill: #4caf50;
+        margin-left: 10px;
       }
-      .search-bar {
-        margin-bottom: 20px;
-        display: flex;
-        justify-content: center;
+      .add-task-icon:hover {
+        fill: #45a049;
       }
-      .search-bar input {
-        width: 50%;
-        max-width: 300px;
-        padding: 10px;
-        font-size: 14px;
-        border-radius: 5px;
-        border: 1px solid #ddd;
-        background-color: inherit;
-        color: inherit;
-      }
+
+      /* DayAccordion component styles */
+      /* Move these styles to a separate CSS file for DayAccordion */
       .accordion {
         background-color: #eee;
         color: inherit;
@@ -143,6 +179,9 @@
         display: none;
         overflow: hidden;
       }
+
+      /* Trashcan component styles */
+      /* Move these styles to a separate CSS file for Trashcan */
       .trashcan {
         margin-top: 30px;
         background-color: #f8f8f8;
@@ -192,38 +231,6 @@
         cursor: pointer;
         padding: 0;
       }
-      .columns {
-        display: flex;
-        justify-content: space-between;
-      }
-      .column {
-        width: 48%;
-      }
-      .accept-icon {
-        width: 20px;
-        height: 20px;
-        cursor: pointer;
-        fill: #4caf50;
-      }
-      .accept-icon:hover {
-        fill: #45a049;
-      }
-      .delete-icon {
-        width: 20px;
-        height: 20px;
-        cursor: pointer;
-        fill: #f44336;
-      }
-      .delete-icon:hover {
-        fill: #d32f2f;
-      }
-      .task-actions {
-        display: flex;
-        align-items: center;
-      }
-      .task-actions svg {
-        margin-left: 10px;
-      }
       .restore-icon {
         width: 20px;
         height: 20px;
@@ -242,16 +249,33 @@
       .trashcan-icon:hover {
         fill: #d32f2f;
       }
-      .add-task-icon {
-        width: 24px;
-        height: 24px;
-        cursor: pointer;
-        fill: #4caf50;
-        margin-left: 10px;
+
+      /* App component styles */
+      /* Move these styles to a separate CSS file for App */
+      .search-bar {
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: center;
       }
-      .add-task-icon:hover {
-        fill: #45a049;
+      .search-bar input {
+        width: 50%;
+        max-width: 300px;
+        padding: 10px;
+        font-size: 14px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        background-color: inherit;
+        color: inherit;
       }
+      .columns {
+        display: flex;
+        justify-content: space-between;
+      }
+      .column {
+        width: 48%;
+      }
+
+      /* Responsive styles */
       @media (max-width: 768px) {
         .trashcan-list,
         .columns {

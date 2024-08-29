@@ -12,7 +12,7 @@ const ThemeSwitch = () => {
     }, [theme]);
 
     return (
-        <div className={styles.themeSwitch}>
+        <div className={styles['theme-switch']}>
         <input
           type='checkbox'
           id='theme-switch'
