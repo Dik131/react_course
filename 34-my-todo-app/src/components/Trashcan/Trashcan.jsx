@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { clearTrashcan, restoreTask } from '../../redux/slices/tasksSlice';
+import { clearTrashcan, restoreTask } from '../../redux/slices/trashcanSlice';
+import PropTypes from 'prop-types';
 
 const Trashcan = () => {
     const dispatch = useDispatch();
@@ -36,6 +37,14 @@ const Trashcan = () => {
       </div>
     );
 
+    TaskColumn.propTypes = {
+      tasks: PropTypes.arrayOf(
+        PropTypes.shape({
+          text: PropTypes.string.isRequired,
+        })
+      ).isRequired,
+    };
+
     if (trashedTasks.length === 0) {
       return null;
     }
@@ -69,3 +78,4 @@ const Trashcan = () => {
     );
   };
 
+export default Trashcan;
