@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleTheme } from '../redux/slices/toggleThemeSlice';
+import { toggleTheme } from '../../redux/slices/toggleThemeSlice';
 import { useEffect } from 'react';
 import styles from './ThemeSwitch.module.css';
 

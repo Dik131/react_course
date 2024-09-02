@@ -1,5 +1,5 @@
 import './App.css'
-import ThemeSwitch from './components/ThemeSwitch'
+import ThemeSwitch from './components/ThemeSwitch/ThemeSwitch'
 
 function App() {
   
