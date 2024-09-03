@@ -1,0 +1,37 @@
+.search-bar {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  .search-bar input {
+    width: 50%;
+    max-width: 300px;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background-color: inherit;
+    color: inherit;
+  }
+  .columns {
+    display: flex;
+    justify-content: space-between;
+  }
+  .column {
+    width: 48%;
+  }
+
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .trashcan-list,
+    .columns {
+      flex-direction: column;
+    }
+    .trashcan-column,
+    .column {
+      width: 100%;
+    }
+    .search-bar input {
+      width: 80%;
+    }
+  }

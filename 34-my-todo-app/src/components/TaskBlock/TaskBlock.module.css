@@ -1,0 +1,37 @@
+ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  li {
+    background-color: inherit;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  form {
+    display: flex;
+    margin-bottom: 20px;
+    align-items: center;
+  }
+  input[type='text'] {
+    flex-grow: 1;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: inherit;
+    color: inherit;
+  }
+  .add-task-icon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    fill: #4caf50;
+    margin-left: 10px;
+  }
+  .add-task-icon:hover {
+    fill: #45a049;
+  }

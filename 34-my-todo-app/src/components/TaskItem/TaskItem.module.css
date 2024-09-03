@@ -1,0 +1,29 @@
+.completed {
+    text-decoration: line-through;
+    color: #888;
+  }
+  .task-actions {
+    display: flex;
+    align-items: center;
+  }
+  .task-actions svg {
+    margin-left: 10px;
+  }
+  .accept-icon {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    fill: #4caf50;
+  }
+  .accept-icon:hover {
+    fill: #45a049;
+  }
+  .delete-icon {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    fill: #f44336;
+  }
+  .delete-icon:hover {
+    fill: #d32f2f;
+  }
