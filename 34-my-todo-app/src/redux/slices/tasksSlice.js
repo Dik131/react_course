@@ -1,4 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { get, set } from 'idb-keyval';
+
+// Middleware to save state to IndexedDB after each action
+const saveStateMiddleware = store => next => action => {
+  const result = next(action);
+  const state = store.getState();
+  set('tasks', state.tasks);
+  return result;
+};
+
+const loadStateMiddleware = store => next => action => {
+  const result = next(action);
+  const state = store.getState();
+  get('tasks', state.tasks);
+  return result;
+};
 
 const tasksSlice = createSlice({
     name: 'tasks',
@@ -19,20 +35,28 @@ const tasksSlice = createSlice({
         trashcan: [],
         theme: 'light',
     },
+    middleware: [saveStateMiddleware, loadStateMiddleware],
     reducers: {
-        addTask: (state, action) => {
-            const { type, text } = action.payload;
-            state[type].push({ text, completed: false });
-        },
-        toggleTask: (state, action) => {
-            const { type, index } = action.payload;
-            state[type][index].completed = !state[type][index].completed;
-        },
-        deleteTask: (state, action) => {
-            const { type, index } = action.payload;
-            const deletedTask = state[type].splice(index, 1)[0];
-            state.trashcan.push({ ...deletedTask, type, index });
-        },
+        addTodo: (state, action) => {
+            state.push({
+              id: Date.now(),
+              text: action.payload,
+              completed: false,
+            });
+            saveStateMiddleware(state);
+          },
+          toggleTodo: (state, action) => {
+            const todo = state.find((todo) => todo.id === action.payload);
+            if (todo) {
+              todo.completed = !todo.completed;
+              saveStateMiddleware(state);
+            }
+          },
+          deleteTodo: (state, action) => {
+            const newState = state.filter((todo) => todo.id !== action.payload);
+            saveStateMiddleware(newState);
+            return newState;
+          },
         addDayTask: (state, action) => {
             const { day, text } = action.payload;
             state.byDay[day].push({ text, completed: false });
