@@ -1,3 +1,7 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { get } from 'idb-keyval';
+import { loadTasks, addTask, toggleTask, deleteTask, addDayTask, toggleDayTask, deleteDayTask, setSearchTerm, uncheckEverydayTasks, uncheckWeeklyTasksAndWeekAccordion } from './redux/slices/tasksSlice';
 import './App.css'
 import ThemeSwitch from './components/ThemeSwitch/ThemeSwitch'
 import Trashcan from './components/Trashcan/Trashcan'
@@ -7,7 +11,7 @@ import TaskBlock from './components/TaskBlock/TaskBlock'
 
 function App() {
   const dispatch = useDispatch();
-        const { everyday, weekly, todoList, byDay, searchTerm, theme } =
+        const { everyday, weekly, todoList, byDay, searchTerm } =
           useSelector((state) => state);
 
         useEffect(() => {

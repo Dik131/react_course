@@ -39,4 +39,9 @@ const PercentageCounter = ({ everyday, currentDayTasks }) => {
     );
   };
 
+  PercentageCounter.propTypes = {
+    everyday: PropTypes.array.isRequired,
+    currentDayTasks: PropTypes.array.isRequired,
+  };
+
   export default PercentageCounter;

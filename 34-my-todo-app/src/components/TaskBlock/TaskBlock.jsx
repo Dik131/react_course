@@ -1,6 +1,7 @@
 import './TaskBlock.module.css';
 import { useState } from 'react';
 import TaskItem from '../TaskItem/TaskItem';
+import PropTypes from 'prop-types';
 
 const TaskBlock = ({
     title,
@@ -63,4 +64,13 @@ const TaskBlock = ({
     );
   };
 
-  export default TaskBlock;
+TaskBlock.propTypes = {
+  title: PropTypes.string.isRequired,
+  tasks: PropTypes.array.isRequired,
+  onAdd: PropTypes.func.isRequired,
+  onToggle: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  searchTerm: PropTypes.string,
+};
+
+export default TaskBlock;

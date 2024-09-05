@@ -1,6 +1,7 @@
 import './DayAccordion.module.css';
 import { useState } from 'react';
 import TaskBlock from '../TaskBlock/TaskBlock';
+import PropTypes from 'prop-types';
 
 const DayAccordion = ({
     day,
@@ -46,6 +47,15 @@ const DayAccordion = ({
         </div>
       </div>
     );
+  };
+
+  DayAccordion.propTypes = {
+    day: PropTypes.string.isRequired,
+    tasks: PropTypes.array.isRequired,
+    onAdd: PropTypes.func.isRequired,
+    onToggle: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    searchTerm: PropTypes.string,
   };
 
   export default DayAccordion;

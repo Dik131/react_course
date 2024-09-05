@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { get, set } from 'idb-keyval';
 
 // Middleware to save state to IndexedDB after each action
-const saveStateMiddleware = store => next => action => {
+export const saveStateMiddleware = store => next => action => {
   const result = next(action);
   const state = store.getState();
   set('tasks', state.tasks);
