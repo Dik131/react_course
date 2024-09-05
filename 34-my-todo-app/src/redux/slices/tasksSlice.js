@@ -9,7 +9,7 @@ export const saveStateMiddleware = store => next => action => {
   return result;
 };
 
-const loadStateMiddleware = store => next => action => {
+export const loadStateMiddleware = store => next => action => {
   const result = next(action);
   const state = store.getState();
   get('tasks', state.tasks);
@@ -32,7 +32,7 @@ const tasksSlice = createSlice({
             saturday: [],
         },
         searchTerm: '',
-        trashcan: [],
+        trashcan: [], // Make sure this is included
         theme: 'light',
     },
     middleware: [saveStateMiddleware, loadStateMiddleware],

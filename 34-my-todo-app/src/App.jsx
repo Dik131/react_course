@@ -11,8 +11,8 @@ import TaskBlock from './components/TaskBlock/TaskBlock'
 
 function App() {
   const dispatch = useDispatch();
-        const { everyday, weekly, todoList, byDay, searchTerm } =
-          useSelector((state) => state);
+        const { everyday, weekly, todoList, byDay = {}, searchTerm } =
+          useSelector((state) => state.tasks);
 
         useEffect(() => {
           const loadTasksFromIndexedDB = async () => {
@@ -75,7 +75,7 @@ function App() {
               <div className='column'>
                 <TaskBlock
                   title='Everyday Tasks'
-                  tasks={everyday}
+                  tasks={everyday || []}
                   onAdd={(text) =>
                     dispatch(addTask({ type: 'everyday', text }))
                   }
@@ -91,7 +91,7 @@ function App() {
                   <DayAccordion
                     key={day}
                     day={day}
-                    tasks={byDay[day]}
+                    tasks={byDay && byDay[day] ? byDay[day] : []}
                     onAdd={(day, text) => dispatch(addDayTask({ day, text }))}
                     onToggle={(day, index) =>
                       dispatch(toggleDayTask({ day, index }))

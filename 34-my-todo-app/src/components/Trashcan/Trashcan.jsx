@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 const Trashcan = () => {
     const dispatch = useDispatch();
-    const trashedTasks = useSelector((state) => state.trashcan);
+    const trashedTasks = useSelector((state) => state.trashcan || []);
 
     const handleClearTrashcan = () => {
       if (
@@ -16,7 +16,7 @@ const Trashcan = () => {
       }
     };
 
-    const TaskColumn = ({ tasks }) => (
+    const TaskColumn = ({ tasks = [] }) => (
       <div className='trashcan-column'>
         {tasks.map((task, index) => (
           <div key={index} className='trashcan-item'>
@@ -45,7 +45,7 @@ const Trashcan = () => {
       ).isRequired,
     };
 
-    if (trashedTasks.length === 0) {
+    if (!trashedTasks || trashedTasks.length === 0) {
       return null;
     }
 
