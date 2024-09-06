@@ -18,6 +18,7 @@ function App() {
           const loadTasksFromIndexedDB = async () => {
             try {
               const storedTasks = await get('tasks');
+              console.log('Stored tasks:', storedTasks);
               if (storedTasks) {
                 dispatch(loadTasks(storedTasks));
               }

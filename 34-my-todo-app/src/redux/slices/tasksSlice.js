@@ -5,6 +5,7 @@ import { get, set } from 'idb-keyval';
 export const saveStateMiddleware = store => next => action => {
   const result = next(action);
   const state = store.getState();
+  console.log('Saving state:', state.tasks);
   set('tasks', state.tasks);
   return result;
 };
@@ -38,11 +39,12 @@ const tasksSlice = createSlice({
     middleware: [saveStateMiddleware, loadStateMiddleware],
     reducers: {
         addTodo: (state, action) => {
-            state.push({
-              id: Date.now(),
-              text: action.payload,
-              completed: false,
-            });
+            const newTask = {
+                id: Date.now(), // Use timestamp as a simple unique id
+                text: action.payload,
+                completed: false
+            };
+            state.push(newTask);
             saveStateMiddleware(state);
           },
           toggleTodo: (state, action) => {
@@ -74,7 +76,7 @@ const tasksSlice = createSlice({
             state.searchTerm = action.payload;
         },
         loadTasks: (state, action) => {
-            return { ...state, ...action.payload };
+            return { ...state, ...action.payload, searchTerm: '' };
         },
         restoreTask: (state, action) => {
             const { index } = action.payload;
@@ -96,6 +98,30 @@ const tasksSlice = createSlice({
             Object.keys(state.byDay).forEach((day) =>
                 state.byDay[day].forEach((task) => (task.completed = false))
             );
+        },
+        addTask: (state, action) => {
+            const { type, text } = action.payload;
+            const newTask = {
+                id: Date.now(),
+                text,
+                completed: false
+            };
+            state[type].push(newTask);
+        },
+        deleteTask: (state, action) => {
+            const { type, index } = action.payload;
+            if (state[type] && Array.isArray(state[type])) {
+                const deletedTask = state[type].splice(index, 1)[0];
+                if (deletedTask) {
+                    state.trashcan.push({ ...deletedTask, type, index });
+                }
+            }
+        },
+        toggleTask: (state, action) => {
+            const { type, index } = action.payload;
+            if (state[type] && Array.isArray(state[type]) && state[type][index]) {
+                state[type][index].completed = !state[type][index].completed;
+            }
         },
     },
 });

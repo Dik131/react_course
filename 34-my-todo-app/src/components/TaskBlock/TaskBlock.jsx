@@ -54,7 +54,7 @@ const TaskBlock = ({
           {filteredTasks.map((task, index) => (
             <TaskItem
               key={index}
-              task={task}
+              task={{...task, id: index}} // Add id here if it doesn't exist
               onToggle={() => onToggle(index)}
               onDelete={() => onDelete(index)}
             />
