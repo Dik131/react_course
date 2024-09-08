@@ -1,67 +1,149 @@
 .trashcan {
   margin-top: 30px;
-  background-color: #f8f8f8;
+  background-color: var(--background-color);
   border-radius: 5px;
   padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
 .trashcanControls {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
 }
+
 .trashcanHeader {
   font-size: 18px;
   font-weight: bold;
+  color: var(--text-color);
 }
+
 .deleteAllButton {
   background-color: transparent;
   border: none;
   cursor: pointer;
   padding: 0;
 }
+
 .emptyTrashcan {
   text-align: center;
-  color: #888;
+  color: var(--text-color-secondary);
 }
+
 .trashcanList {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
+
 .trashcanColumn {
   width: 48%;
 }
+
 .trashcanItem {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  background-color: inherit;
+  background-color: var(--item-background-color);
   margin: 5px 0;
   border-radius: 5px;
+  color: var(--text-color);
 }
+
 .restoreButton {
   background-color: transparent;
   border: none;
   cursor: pointer;
   padding: 0;
 }
+
 .restoreIcon {
   width: 20px;
   height: 20px;
   cursor: pointer;
-  fill: #2196f3;
+  fill: var(--accent-color);
 }
+
 .restoreIcon:hover {
-  fill: #1976d2;
+  fill: var(--accent-color-hover);
 }
+
 .trashcanIcon {
   width: 24px;
   height: 24px;
   cursor: pointer;
-  fill: #f44336;
+  fill: var(--delete-color);
 }
+
 .trashcanIcon:hover {
-  fill: #d32f2f;
+  fill: var(--delete-color-hover);
+}
+
+/* Dark mode styles */
+:global(.dark-theme) .trashcan {
+  background-color: var(--dark-background-color);
+}
+
+:global(.dark-theme) .trashcanHeader {
+  color: var(--dark-text-color);
+}
+
+:global(.dark-theme) .emptyTrashcan {
+  color: var(--dark-text-color-secondary);
+}
+
+:global(.dark-theme) .trashcanItem {
+  background-color: var(--dark-item-background-color);
+  color: var(--dark-text-color);
+}
+
+:global(.dark-theme) .restoreIcon {
+  fill: var(--dark-accent-color);
+}
+
+:global(.dark-theme) .restoreIcon:hover {
+  fill: var(--dark-accent-color-hover);
+}
+
+:global(.dark-theme) .trashcanIcon {
+  fill: var(--dark-delete-color);
+}
+
+:global(.dark-theme) .trashcanIcon:hover {
+  fill: var(--dark-delete-color-hover);
+}
+
+.darkTheme.trashcan {
+  background-color: var(--dark-background-color);
+}
+
+.darkTheme.trashcanHeader {
+  color: var(--dark-text-color);
+}
+
+.darkTheme.emptyTrashcan {
+  color: var(--dark-text-color-secondary);
+}
+
+.darkTheme.trashcanItem {
+  background-color: var(--dark-item-background-color);
+  color: var(--dark-text-color);
+}
+
+.darkTheme.restoreIcon {
+  fill: var(--dark-accent-color);
+}
+
+.darkTheme.restoreIcon:hover {
+  fill: var(--dark-accent-color-hover);
+}
+
+.darkTheme.trashcanIcon {
+  fill: var(--dark-delete-color);
+}
+
+.darkTheme.trashcanIcon:hover {
+  fill: var(--dark-delete-color-hover);
 }

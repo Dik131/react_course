@@ -1,31 +1,37 @@
-import { useState } from 'react';
 import TaskItem from '../TaskItem/TaskItem';
 import PropTypes from 'prop-types';
 import styles from './TaskBlock.module.css';
 
-const TaskBlock = ({ title, tasks, onAdd, onToggle, onDelete, searchTerm }) => {
-  const [newTask, setNewTask] = useState('');
-
+const TaskBlock = ({
+  title,
+  tasks,
+  onAdd,
+  onToggle,
+  onDelete,
+  searchTerm,
+  type,
+}) => {
   const filteredTasks = tasks.filter((task) =>
     task.text.toLowerCase().includes(searchTerm ? searchTerm.toLowerCase() : '')
   );
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (newTask.trim()) {
-      onAdd(newTask);
-      setNewTask('');
-    }
-  };
-
   return (
     <div>
       <h2>{title}</h2>
-      <form className={styles.form} onSubmit={handleSubmit}>
+      <form
+        className={styles.form}
+        onSubmit={(e) => {
+          e.preventDefault();
+          const input = e.target.elements.newTask;
+          if (input.value.trim()) {
+            onAdd(input.value);
+            input.value = '';
+          }
+        }}
+      >
         <input
           type='text'
-          value={newTask}
-          onChange={(e) => setNewTask(e.target.value)}
+          name='newTask'
           placeholder='Add a new task'
           className={styles.input}
         />
@@ -37,18 +43,17 @@ const TaskBlock = ({ title, tasks, onAdd, onToggle, onDelete, searchTerm }) => {
       </form>
       <ul className={styles.taskList}>
         {filteredTasks.map((task, index) => (
-          <li key={index} className={styles.taskItem}>
-            <TaskItem
-              task={{
-                ...task,
-                id: index,
-                index: index,
-                type: title.toLowerCase().replace(' tasks', ''),
-              }}
-              onToggle={() => onToggle(index)}
-              onDelete={() => onDelete(index)}
-            />
-          </li>
+          <TaskItem
+            key={task.id || index}
+            task={{
+              ...task,
+              id: task.id || index,
+              index: index,
+              type: type,
+            }}
+            onToggle={() => onToggle(index)}
+            onDelete={() => onDelete(index)}
+          />
         ))}
       </ul>
     </div>
@@ -62,6 +67,7 @@ TaskBlock.propTypes = {
   onToggle: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
   searchTerm: PropTypes.string,
+  type: PropTypes.string.isRequired,
 };
 
 export default TaskBlock;

@@ -104,12 +104,13 @@ function App() {
               dispatch(deleteTask({ type: 'everyday', index }))
             }
             searchTerm={searchTerm}
+            type='everyday'
           />
           {weekDays.map((day) => (
             <DayAccordion
               key={day}
               day={day}
-              tasks={byDay && byDay[day] ? byDay[day] : []}
+              tasks={byDay[day]}
               onAdd={(day, text) => dispatch(addDayTask({ day, text }))}
               onToggle={(day, index) => dispatch(toggleDayTask({ day, index }))}
               onDelete={(day, index) => dispatch(deleteDayTask({ day, index }))}
@@ -129,6 +130,7 @@ function App() {
               dispatch(deleteTask({ type: 'weekly', index }))
             }
             searchTerm={searchTerm}
+            type='weekly'
           />
           <TaskBlock
             title='Todo List'
@@ -141,6 +143,7 @@ function App() {
               dispatch(deleteTask({ type: 'todoList', index }))
             }
             searchTerm={searchTerm}
+            type='todoList'
           />
         </div>
       </div>

@@ -16,10 +16,6 @@ const DayAccordion = ({
       new Date().toLocaleDateString('en-US', { weekday: 'long' }).toLowerCase()
   );
 
-  const filteredTasks = tasks.filter((task) =>
-    task.text.toLowerCase().includes(searchTerm ? searchTerm.toLowerCase() : '')
-  );
-
   return (
     <div className={styles.dayAccordion}>
       <button
@@ -34,11 +30,12 @@ const DayAccordion = ({
       >
         <TaskBlock
           title=''
-          tasks={filteredTasks}
+          tasks={tasks || []}
           onAdd={(text) => onAdd(day, text)}
           onToggle={(index) => onToggle(day, index)}
           onDelete={(index) => onDelete(day, index)}
           searchTerm={searchTerm}
+          type={`byDay-${day}`}
         />
       </div>
     </div>
@@ -47,7 +44,7 @@ const DayAccordion = ({
 
 DayAccordion.propTypes = {
   day: PropTypes.string.isRequired,
-  tasks: PropTypes.array.isRequired,
+  tasks: PropTypes.array,
   onAdd: PropTypes.func.isRequired,
   onToggle: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,

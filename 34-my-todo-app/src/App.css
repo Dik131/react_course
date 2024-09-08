@@ -1,37 +1,68 @@
 .search-bar {
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: center;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+.search-bar input {
+  width: 50%;
+  max-width: 300px;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  background-color: inherit;
+  color: inherit;
+}
+.columns {
+  display: flex;
+  justify-content: space-between;
+}
+.column {
+  width: 48%;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .trashcan-list,
+  .columns {
+    flex-direction: column;
+  }
+  .trashcan-column,
+  .column {
+    width: 100%;
   }
   .search-bar input {
-    width: 50%;
-    max-width: 300px;
-    padding: 10px;
-    font-size: 14px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    background-color: inherit;
-    color: inherit;
+    width: 80%;
   }
-  .columns {
-    display: flex;
-    justify-content: space-between;
-  }
-  .column {
-    width: 48%;
-  }
+}
 
-  /* Responsive styles */
-  @media (max-width: 768px) {
-    .trashcan-list,
-    .columns {
-      flex-direction: column;
-    }
-    .trashcan-column,
-    .column {
-      width: 100%;
-    }
-    .search-bar input {
-      width: 80%;
-    }
-  }
+:root {
+  --background-color: #f8f8f8;
+  --text-color: #333;
+  --text-color-secondary: #888;
+  --item-background-color: #fff;
+  --accent-color: #2196f3;
+  --accent-color-hover: #1976d2;
+  --delete-color: #f44336;
+  --delete-color-hover: #d32f2f;
+
+  --dark-background-color: #1e1e1e;
+  --dark-text-color: #e0e0e0;
+  --dark-text-color-secondary: #a0a0a0;
+  --dark-item-background-color: #2d2d2d;
+  --dark-accent-color: #64b5f6;
+  --dark-accent-color-hover: #42a5f5;
+  --dark-delete-color: #ff5252;
+  --dark-delete-color-hover: #ff1744;
+}
+
+.dark-theme {
+  --background-color: var(--dark-background-color);
+  --text-color: var(--dark-text-color);
+  --text-color-secondary: var(--dark-text-color-secondary);
+  --item-background-color: var(--dark-item-background-color);
+  --accent-color: var(--dark-accent-color);
+  --accent-color-hover: var(--dark-accent-color-hover);
+  --delete-color: var(--dark-delete-color);
+  --delete-color-hover: var(--dark-delete-color-hover);
+}
