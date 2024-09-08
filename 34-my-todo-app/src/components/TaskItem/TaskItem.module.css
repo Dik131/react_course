@@ -1,29 +1,34 @@
 .completed {
-    text-decoration: line-through;
-    color: #888;
-  }
-  .task-actions {
-    display: flex;
-    align-items: center;
-  }
-  .task-actions svg {
-    margin-left: 10px;
-  }
-  .accept-icon {
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-    fill: #4caf50;
-  }
-  .accept-icon:hover {
-    fill: #45a049;
-  }
-  .delete-icon {
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-    fill: #f44336;
-  }
-  .delete-icon:hover {
-    fill: #d32f2f;
-  }
+  text-decoration: line-through;
+  color: #888;
+}
+.taskItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.taskActions {
+  display: flex;
+  align-items: center;
+}
+.taskActions svg {
+  margin-left: 10px;
+}
+.acceptIcon {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  fill: #4caf50;
+}
+.acceptIcon:hover {
+  fill: #45a049;
+}
+.deleteIcon {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  fill: #f44336;
+}
+.deleteIcon:hover {
+  fill: #d32f2f;
+}

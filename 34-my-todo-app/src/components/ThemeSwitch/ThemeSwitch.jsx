@@ -4,24 +4,25 @@ import { useEffect } from 'react';
 import styles from './ThemeSwitch.module.css';
 
 const ThemeSwitch = () => {
-    const dispatch = useDispatch();
-    const theme = useSelector((state) => state.theme);
+  const dispatch = useDispatch();
+  const theme = useSelector((state) => state.theme);
 
-    useEffect(() => {
-      document.body.className = theme;
-    }, [theme]);
+  useEffect(() => {
+    document.body.className = theme;
+  }, [theme]);
 
-    return (
-        <div className={styles['theme-switch']}>
-        <input
-          type='checkbox'
-          id='theme-switch'
-          checked={theme === 'dark'}
-          onChange={() => dispatch(toggleTheme())}
-        />
-        <label htmlFor='theme-switch'></label>
-      </div>
-    );
-  };
+  return (
+    <div className={styles.themeSwitch}>
+      <input
+        type='checkbox'
+        id='theme-switch'
+        className={styles.themeSwitchInput}
+        checked={theme === 'dark'}
+        onChange={() => dispatch(toggleTheme())}
+      />
+      <label htmlFor='theme-switch' className={styles.themeSwitchLabel}></label>
+    </div>
+  );
+};
 
 export default ThemeSwitch;

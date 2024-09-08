@@ -1,14 +1,14 @@
-.theme-switch {
+.themeSwitch {
   position: absolute;
   top: 20px;
   right: 20px;
   display: flex;
   align-items: center;
 }
-.theme-switch input {
+.themeSwitch input {
   display: none;
 }
-.theme-switch label {
+.themeSwitch label {
   margin: 0;
   cursor: pointer;
   height: 24px;
@@ -18,7 +18,7 @@
   border-radius: 12px;
   transition: background-color 0.3s;
 }
-.theme-switch label::before {
+.themeSwitch label::before {
   content: '';
   position: absolute;
   top: 2px;
