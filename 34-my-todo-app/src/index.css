@@ -14,9 +14,10 @@ body.dark {
   color: #f0f0f0;
 }
 body.dark button {
-  background-color: #333;
+  background-color: var(--dark-background-color);
   color: #f0f0f0;
 }
+
 body.dark button:hover {
   color: #333;
 }

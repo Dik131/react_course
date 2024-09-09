@@ -1,11 +1,14 @@
 .trashcan {
-  margin-top: 30px;
-  background-color: var(--background-color);
+  margin-top: 2rem;
   border-radius: 5px;
   padding: 15px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: var(--item-background-color);
 }
-
+.trashcan.dark {
+  background-color: var(--dark-item-background-color);
+  color: var(--dark-text-color);
+}
 .trashcanControls {
   display: flex;
   justify-content: space-between;
@@ -27,6 +30,7 @@
 }
 
 .emptyTrashcan {
+  margin-top: 3rem;
   text-align: center;
   color: var(--text-color-secondary);
 }
@@ -46,10 +50,14 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  background-color: var(--item-background-color);
+  background-color: var(--background-color);
   margin: 5px 0;
   border-radius: 5px;
   color: var(--text-color);
+}
+.trashcanItem.dark {
+  background-color: var(--dark-item-background-color);
+  color: var(--dark-text-color);
 }
 
 .restoreButton {
@@ -81,69 +89,36 @@
   fill: var(--delete-color-hover);
 }
 
-/* Dark mode styles */
-:global(.dark-theme) .trashcan {
+.darkTheme {
   background-color: var(--dark-background-color);
-}
-
-:global(.dark-theme) .trashcanHeader {
   color: var(--dark-text-color);
 }
 
-:global(.dark-theme) .emptyTrashcan {
+.darkTheme .trashcanHeader {
+  color: var(--dark-text-color);
+}
+
+.darkTheme .emptyTrashcan {
   color: var(--dark-text-color-secondary);
 }
 
-:global(.dark-theme) .trashcanItem {
+.darkTheme .trashcanItem {
   background-color: var(--dark-item-background-color);
   color: var(--dark-text-color);
 }
 
-:global(.dark-theme) .restoreIcon {
+.darkTheme .restoreIcon {
   fill: var(--dark-accent-color);
 }
 
-:global(.dark-theme) .restoreIcon:hover {
+.darkTheme .restoreIcon:hover {
   fill: var(--dark-accent-color-hover);
 }
 
-:global(.dark-theme) .trashcanIcon {
+.darkTheme .trashcanIcon {
   fill: var(--dark-delete-color);
 }
 
-:global(.dark-theme) .trashcanIcon:hover {
-  fill: var(--dark-delete-color-hover);
-}
-
-.darkTheme.trashcan {
-  background-color: var(--dark-background-color);
-}
-
-.darkTheme.trashcanHeader {
-  color: var(--dark-text-color);
-}
-
-.darkTheme.emptyTrashcan {
-  color: var(--dark-text-color-secondary);
-}
-
-.darkTheme.trashcanItem {
-  background-color: var(--dark-item-background-color);
-  color: var(--dark-text-color);
-}
-
-.darkTheme.restoreIcon {
-  fill: var(--dark-accent-color);
-}
-
-.darkTheme.restoreIcon:hover {
-  fill: var(--dark-accent-color-hover);
-}
-
-.darkTheme.trashcanIcon {
-  fill: var(--dark-delete-color);
-}
-
-.darkTheme.trashcanIcon:hover {
+.darkTheme .trashcanIcon:hover {
   fill: var(--dark-delete-color-hover);
 }
