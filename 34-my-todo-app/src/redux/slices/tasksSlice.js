@@ -23,6 +23,7 @@ const tasksSlice = createSlice({
     everyday: [],
     weekly: [],
     todoList: [],
+    monthTasks: [],
     byDay: {
       sunday: [],
       monday: [],

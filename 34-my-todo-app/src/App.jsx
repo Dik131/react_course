@@ -19,6 +19,7 @@ import Trashcan from './components/Trashcan/Trashcan';
 import PercentageCounter from './components/PercentageCounter/PercentageCounter';
 import DayAccordion from './components/DayAccordion/DayAccordion';
 import TaskBlock from './components/TaskBlock/TaskBlock';
+import MonthTodoList from './components/MonthTodoList/MonthTodoList';
 
 function App() {
   const dispatch = useDispatch();
@@ -151,6 +152,7 @@ function App() {
             searchTerm={searchTerm}
             type='todoList'
           />
+          <MonthTodoList />
         </div>
       </div>
       <Trashcan />
