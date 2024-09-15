@@ -2,6 +2,7 @@ import styles from './DayAccordion.module.css';
 import { useState } from 'react';
 import TaskBlock from '../TaskBlock/TaskBlock';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 const DayAccordion = ({
   day,
@@ -16,8 +17,14 @@ const DayAccordion = ({
       new Date().toLocaleDateString('en-US', { weekday: 'long' }).toLowerCase()
   );
 
+  const theme = useSelector((state) => state.theme);
+
   return (
-    <div className={styles.dayAccordion}>
+    <div
+      className={`${styles.dayAccordion} ${
+        theme === 'dark' ? styles.darkTheme : ''
+      }`}
+    >
       <button
         className={`${styles.accordion} ${isOpen ? styles.active : ''}`}
         onClick={() => setIsOpen(!isOpen)}

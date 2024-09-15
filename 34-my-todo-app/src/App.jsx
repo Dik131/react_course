@@ -30,6 +30,12 @@ function App() {
     searchTerm,
   } = useSelector((state) => state.tasks);
 
+  const theme = useSelector((state) => state.theme);
+
+  useEffect(() => {
+    document.body.className = theme;
+  }, [theme]);
+
   useEffect(() => {
     const loadTasksFromIndexedDB = async () => {
       try {

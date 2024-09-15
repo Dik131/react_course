@@ -27,15 +27,17 @@ input[type='text'] {
 }
 .addTaskButton {
   border: none;
-  opacity: 5;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 0;
 }
 .addTaskIcon {
   width: 24px;
   height: 24px;
   cursor: pointer;
-  fill: #4caf50;
+  fill: var(--accent-color);
   margin-left: 10px;
 }
 .addTaskIcon:hover {
-  fill: #45a049;
+  fill: var(--accent-color-hover);
 }

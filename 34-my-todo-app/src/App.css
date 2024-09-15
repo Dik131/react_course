@@ -45,15 +45,22 @@
   --accent-color-hover: #1976d2;
   --delete-color: #f44336;
   --delete-color-hover: #d32f2f;
+}
 
-  --dark-background-color: #1e1e1e;
-  --dark-text-color: #e0e0e0;
-  --dark-text-color-secondary: #a0a0a0;
-  --dark-item-background-color: #2d2d2d;
-  --dark-accent-color: #64b5f6;
-  --dark-accent-color-hover: #42a5f5;
-  --dark-delete-color: #ff5252;
-  --dark-delete-color-hover: #ff1744;
+body.dark {
+  --background-color: #1e1e1e;
+  --text-color: #e0e0e0;
+  --text-color-secondary: #a0a0a0;
+  --item-background-color: #2d2d2d;
+  --accent-color: #64b5f6;
+  --accent-color-hover: #42a5f5;
+  --delete-color: #ff5252;
+  --delete-color-hover: #ff1744;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 .dark-theme {

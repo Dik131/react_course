@@ -5,7 +5,7 @@ body {
   padding: 20px;
   transition: background-color 0.5s, color 0.5s;
 }
-body.light {
+/* body.light {
   background-color: #f0f0f0;
   color: #333;
 }
@@ -20,7 +20,7 @@ body.dark button {
 
 body.dark button:hover {
   color: #333;
-}
+} */
 h1 {
   text-align: center;
 }
