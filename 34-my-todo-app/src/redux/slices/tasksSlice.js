@@ -128,6 +128,9 @@ const tasksSlice = createSlice({
         state[type][index].completed = !state[type][index].completed;
       }
     },
+    uncheckMonthTasks: (state) => {
+      state.monthTasks.forEach((task) => (task.completed = false));
+    },
   },
 });
 
@@ -144,6 +147,7 @@ export const {
   clearTrashcan,
   uncheckEverydayTasks,
   uncheckWeeklyTasksAndWeekAccordion,
+  uncheckMonthTasks,
   toggleTheme,
 } = tasksSlice.actions;
 

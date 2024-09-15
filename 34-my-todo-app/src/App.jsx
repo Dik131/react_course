@@ -12,6 +12,7 @@ import {
   setSearchTerm,
   uncheckEverydayTasks,
   uncheckWeeklyTasksAndWeekAccordion,
+  uncheckMonthTasks,
 } from './redux/slices/tasksSlice';
 import './App.css';
 import ThemeSwitch from './components/ThemeSwitch/ThemeSwitch';
@@ -59,7 +60,12 @@ function App() {
       const now = new Date();
       if (now.getHours() === 0 && now.getMinutes() === 0) {
         dispatch(uncheckEverydayTasks());
+        if (now.getDate() === 1) {
+          // First day of the month
+          dispatch(uncheckMonthTasks());
+        }
         if (now.getDay() === 0) {
+          // Sunday
           dispatch(uncheckWeeklyTasksAndWeekAccordion());
         }
       }
