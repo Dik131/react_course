@@ -27,6 +27,7 @@ function App() {
     everyday,
     weekly,
     todoList,
+    monthTasks,
     byDay = {},
     searchTerm,
   } = useSelector((state) => state.tasks);
@@ -89,6 +90,9 @@ function App() {
       <PercentageCounter
         everyday={everyday}
         currentDayTasks={byDay[currentDay]}
+        weekly={weekly}
+        todoList={todoList}
+        monthTasks={monthTasks}
       />
       <div className='search-bar'>
         <input

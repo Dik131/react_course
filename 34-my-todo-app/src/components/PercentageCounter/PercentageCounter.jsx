@@ -1,26 +1,24 @@
 import styles from './PercentageCounter.module.css';
 import PropTypes from 'prop-types';
 
-const PercentageCounter = ({ everyday, currentDayTasks }) => {
-  const completedEveryday = everyday.filter((task) => task.completed).length;
-  const completedCurrentDay = currentDayTasks.filter(
-    (task) => task.completed
-  ).length;
-  const totalEveryday = everyday.length;
-  const totalCurrentDay = currentDayTasks.length;
-
-  const calculatePercentage = (completed, total) => {
+const PercentageCounter = ({
+  everyday,
+  currentDayTasks,
+  weekly,
+  todoList,
+  monthTasks,
+}) => {
+  const calculatePercentage = (tasks) => {
+    const completed = tasks.filter((task) => task.completed).length;
+    const total = tasks.length;
     return total > 0 ? ((completed / total) * 100).toFixed(2) : '0.00';
   };
 
-  const percentageEveryday = calculatePercentage(
-    completedEveryday,
-    totalEveryday
-  );
-  const percentageCurrentDay = calculatePercentage(
-    completedCurrentDay,
-    totalCurrentDay
-  );
+  const percentageEveryday = calculatePercentage(everyday);
+  const percentageCurrentDay = calculatePercentage(currentDayTasks);
+  const percentageWeekly = calculatePercentage(weekly);
+  const percentageTodoList = calculatePercentage(todoList);
+  const percentageMonthTasks = calculatePercentage(monthTasks);
 
   return (
     <div className={styles.percentageCounter}>
@@ -33,6 +31,15 @@ const PercentageCounter = ({ everyday, currentDayTasks }) => {
           Completion: {percentageCurrentDay}%
         </div>
       )}
+      {percentageWeekly >= 50 && (
+        <div>Weekly Tasks Completion: {percentageWeekly}%</div>
+      )}
+      {percentageTodoList >= 50 && (
+        <div>Todo List Completion: {percentageTodoList}%</div>
+      )}
+      {percentageMonthTasks >= 50 && (
+        <div>Month Tasks Completion: {percentageMonthTasks}%</div>
+      )}
     </div>
   );
 };
@@ -40,6 +47,9 @@ const PercentageCounter = ({ everyday, currentDayTasks }) => {
 PercentageCounter.propTypes = {
   everyday: PropTypes.array.isRequired,
   currentDayTasks: PropTypes.array.isRequired,
+  weekly: PropTypes.array.isRequired,
+  todoList: PropTypes.array.isRequired,
+  monthTasks: PropTypes.array.isRequired,
 };
 
 export default PercentageCounter;
